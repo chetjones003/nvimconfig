@@ -1,10 +1,30 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeToggle)
 
 -- write file
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 
-vim.keymap.set("n", "<leader>rp", ":!python3 %<CR>")
+-- window nav remaps
+vim.keymap.set("n", "<leader>wh", "<C-w>h")
+vim.keymap.set("n", "<leader>wj", "<C-w>j")
+vim.keymap.set("n", "<leader>wk", "<C-w>k")
+vim.keymap.set("n", "<leader>wl", "<C-w>l")
+
+-- buffer nav
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
+vim.keymap.set("n", "<S-l>", ":bnext<CR>")
+vim.keymap.set("n", "<leader>bc", ":bdelete<CR>")
+
+-- Visual --
+-- Stay in indent mode
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+-- run python file
+vim.keymap.set("n", "<leader>rp", ":TermExec cmd='python3 %'<CR>")
+
+-- remap escape
+vim.keymap.set("i", "jk", "<Esc>")
 
 -- move lines up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

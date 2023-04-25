@@ -3,6 +3,8 @@ vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeToggle)
 
 -- write file
 vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", "<leader>wq", ":wq<CR>")
+vim.keymap.set("n", "<leader>q", ":q<CR>")
 
 -- window nav remaps
 vim.keymap.set("n", "<leader>wh", "<C-w>h")
@@ -17,8 +19,8 @@ vim.keymap.set("n", "<leader>bc", ":bdelete<CR>")
 
 -- Visual --
 -- Stay in indent mode
-vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
 
 -- run python file
 vim.keymap.set("n", "<leader>rp", ":TermExec cmd='python3 %'<CR>")
@@ -73,7 +75,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- source the file
-vim.keymap.set("n", "<leader><leader>", function()
+vim.keymap.set("n", "<leader>so", function()
     vim.cmd("so")
 
 end)

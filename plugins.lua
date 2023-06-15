@@ -59,5 +59,32 @@ local plugins = {
       return M
     end,
   },
+
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        mappings = {
+          i = {
+            ["<C-j>"] = {
+              require("telescope.actions").move_selection_next,
+              type = "action",
+              opts = {nowait=true, silent=true}
+            },
+            ["<C-k>"] = {
+              require("telescope.actions").move_selection_previous,
+              type = "action",
+              opts = {nowait=true, silent=true}
+            },
+          }
+        }
+      }
+    }
+  }
 }
 return plugins

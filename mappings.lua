@@ -1,30 +1,12 @@
 local M = {}
-M.dap = {
+M.general = {
   n = {
-    ["<leader>db"] = {
-      "<cmd> DapToggleBreakpoint <cr>",
-      "Toggle BreakPoint",
-    },
-    ["<leader>dus"] = {
-      function ()
-        local widgets = require("dap.ui.widgets");
-        local sidebar = widgets.sidebar(widgets.scopes);
-        sidebar.open();
-      end,
-      "Open debugging sidebar",
-    },
-    ["<leader>dsn"] = {
-      "<cmd> DapStepOver <cr>",
-      "Dap Step Over",
-    },
-    ["<leader>dt"] = {
-      "<cmd> DapTerminate <cr>",
-      "Dap Terminate",
-    },
-    ["<leader>dd"] = {
-      "<cmd> RustDebuggables <cr>",
-      "Rust Debuggables",
-    },
+    ["<C-h>"] = { "<cmd>TmuxNavigateLeft<cr>", "Window left" },
+    ["<C-j>"] = { "<cmd>TmuxNavigateDown<cr>", "Window down" },
+    ["<C-k>"] = { "<cmd>TmuxNavigateUp<cr>", "Window up" },
+    ["<C-l>"] = { "<cmd>TmuxNavigateRight<cr>", "Window right" },
+    ["<S-h>"] = { "<cmd>bprevious<cr>" },
+    ["<S-l>"] = { "<cmd>bnext<cr>" },
   },
 }
 
@@ -36,7 +18,7 @@ M.crates = {
       end,
       "Update Crates"
     }
-  }
+  },
 }
 
 return M

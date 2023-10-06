@@ -30,3 +30,5 @@ vim.opt.colorcolumn = "80"
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+vim.g.rustfmt_autosave = 1

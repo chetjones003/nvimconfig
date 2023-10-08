@@ -133,6 +133,19 @@ local mappings = {
             "Workspace Symbols",
         },
     },
+    r = {
+        name = "Rust",
+        b = {"<cmd>Cbuild<cr>", "Cargo build"},
+        c = {"<cmd>Ccheck<cr>", "Cargo check"},
+        d = {"<cmd>Cclean<cr>", "Cargo clean"},
+        r = {"<cmd>Crun<cr>", "Cargo run"},
+        t = {"<cmd>Ctest<cr>", "Cargo test"},
+    },
+    t = {
+        name = "Treesitter",
+        f = {"<cmd>TSTextobjectSelect @function.outer<cr>", "Select function"},
+        c = {"<cmd>TSTextobjectSelect @class.outer<cr>", "Select class"}
+    },
 }
 
 which_key.setup(setup)

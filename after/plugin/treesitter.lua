@@ -1,9 +1,20 @@
-local treesitter_status_ok, nvim_treesitter = pcall(require, "nvim-treesitter.configs")
-if not treesitter_status_ok then
-    return
-end
-
-nvim_treesitter.setup {
+require("nvim-treesitter.configs").setup({
+    sync_install = false,
+    auto_install = true,
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+    indent = { enable = true },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<C-space>",
+            node_incremental = "<C-space>",
+            scope_incremental = false,
+            node_decremental = "<bs>",
+        },
+    },
     ensure_installed = {
         "bash",
         "c",
@@ -22,13 +33,10 @@ nvim_treesitter.setup {
         "vim",
         "vimdoc",
     },
-    sync_install = false,
-    auto_install = true,
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
+    text_objects = {
+        select = {
+            enable = true,
+            lookahead = true,
+        },
     },
-    indent = {
-        enable = true
-    },
-}
+})

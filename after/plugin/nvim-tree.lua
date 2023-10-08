@@ -1,6 +1,9 @@
-vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeToggle)
+local status_ok, nvim_tree = pcall(require, "nvim-tree")
+if not status_ok then
+    return
+end
 
-require("nvim-tree").setup({
+nvim_tree.setup({
     sort_by = "case_sensitive",
     update_focused_file = {
         enable = true,

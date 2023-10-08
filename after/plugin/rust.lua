@@ -1,10 +1,26 @@
-local lsp_zero = require("lsp-zero")
+local lsp_status_ok, lsp_zero = pcall(require, "lsp_zero")
+if not lsp_status_ok then
+    return
+end
+
+local rust_status_ok, rust_tools = pcall(require, "rust-tools")
+if not rust_status_ok then
+    return
+end
+
+local crates_status_ok, crates = pcall(require, "crates")
+if not crates_status_ok then
+    return
+end
+
+local cmp_status_ok, cmp = pcall(require, "cmp")
+if not cmp_status_ok then
+    return
+end
 
 lsp_zero.on_attach(function(client, bufnr)
     lsp_zero.default_keymaps({ buffer = bufnr })
 end)
-
-local rust_tools = require("rust-tools")
 
 rust_tools.setup({
     server = {
@@ -22,7 +38,7 @@ rust_tools.setup({
     },
 })
 
-require("crates").setup({
+crates.setup({
     src = {
         cmp = {
             enabled = true,
@@ -30,7 +46,7 @@ require("crates").setup({
     },
 })
 
-require("cmp").setup {
+cmp.setup {
     sources = {
         { name = "path" },
         { name = "buffer" },

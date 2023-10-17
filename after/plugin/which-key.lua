@@ -106,7 +106,7 @@ local mappings = {
         name = "LSP",
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
         d = {
-            "<cmd>Telescope diagnostics bufnr=0<cr>",
+            "<cmd>lua vim.diagnostic.open_float()<cr>",
             "Document Diagnostics",
         },
         w = {
@@ -115,16 +115,14 @@ local mappings = {
         },
         f = { "<cmd>lua vim.lsp.buf.format{async=true}<cr>", "Format" },
         i = { "<cmd>LspInfo<cr>", "Info" },
-        I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
         j = {
-            "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
+            "<cmd>lua vim.diagnostic.goto_next()<CR>",
             "Next Diagnostic",
         },
         k = {
-            "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+            "<cmd>lua vim.diagnostic.goto_prev()<cr>",
             "Prev Diagnostic",
         },
-        l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
         q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
         r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
         s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
@@ -133,18 +131,18 @@ local mappings = {
             "Workspace Symbols",
         },
     },
-    r = {
-        name = "Rust",
-        b = {"<cmd>Cbuild<cr>", "Cargo build"},
-        c = {"<cmd>Ccheck<cr>", "Cargo check"},
-        d = {"<cmd>Cclean<cr>", "Cargo clean"},
-        r = {"<cmd>Crun<cr>", "Cargo run"},
-        t = {"<cmd>Ctest<cr>", "Cargo test"},
-    },
     t = {
         name = "Treesitter",
-        f = {"<cmd>TSTextobjectSelect @function.outer<cr>", "Select function"},
-        c = {"<cmd>TSTextobjectSelect @class.outer<cr>", "Select class"}
+        f = {
+            name = "Function",
+            a = {"<cmd>TSTextobjectSelect @function.outer<cr>", "Select around function"},
+            i = {"<cmd>TSTextobjectSelect @function.inner<cr>", "Select inside function"},
+        },
+        c = {
+            name = "Class",
+            a = {"<cmd>TSTextobjectSelect @class.outer<cr>", "Select around class"},
+            i = {"<cmd>TSTextobjectSelect @class.inner<cr>", "Select inside class"},
+        },
     },
 }
 

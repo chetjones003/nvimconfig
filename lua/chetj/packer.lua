@@ -46,6 +46,7 @@ return require("packer").startup(function(use)
     }
     use { "nvim-tree/nvim-web-devicons" }
     use { "folke/which-key.nvim" }
+    use { "onsails/lspkind.nvim" }
 
     -- Git
     use { "tpope/vim-fugitive" }
@@ -53,12 +54,6 @@ return require("packer").startup(function(use)
     -- MISC
     use { "ggandor/leap.nvim" }
     use { "christoomey/vim-tmux-navigator" }
-    use {
-        "windwp/nvim-autopairs",
-        config = function()
-            require("nvim-autopairs").setup {}
-        end,
-    }
 
     -- LSP
     use {
@@ -70,6 +65,11 @@ return require("packer").startup(function(use)
 
             -- LSP Support
             { "neovim/nvim-lspconfig" },
+            { "saadparwaiz1/cmp_luasnip" },
+            { "hrsh7th/cmp-nvim-lua" },
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-buffer" },
+            { "hrsh7th/cmp-path" },
             -- Autocompletion
             { "hrsh7th/nvim-cmp" },
             { "hrsh7th/cmp-nvim-lsp" },

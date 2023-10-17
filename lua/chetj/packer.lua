@@ -52,6 +52,7 @@ return require("packer").startup(function(use)
     use { "tpope/vim-fugitive" }
 
     -- MISC
+    use { "windwp/nvim-autopairs" }
     use { "ggandor/leap.nvim" }
     use { "christoomey/vim-tmux-navigator" }
 

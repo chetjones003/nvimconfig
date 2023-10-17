@@ -56,6 +56,7 @@ return require("packer").startup(function(use)
     use { "ggandor/leap.nvim" }
     use { "christoomey/vim-tmux-navigator" }
     use { "mhartington/formatter.nvim" }
+    use { "mfussenegger/nvim-lint" }
 
     -- LSP
     use {

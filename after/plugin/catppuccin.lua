@@ -35,7 +35,12 @@ catppuccin.setup({
         operators = {},
     },
     color_overrides = {},
-    custom_highlights = {},
+    custom_highlights = function(colors)
+        return {
+            CmpSel = { bg = colors.mauve, fg = colors.base },
+            CmpBorder = { fg = colors.mauve },
+        }
+    end,
     integrations = {
         cmp = true,
         gitsigns = true,

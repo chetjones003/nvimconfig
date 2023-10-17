@@ -55,6 +55,7 @@ return require("packer").startup(function(use)
     use { "windwp/nvim-autopairs" }
     use { "ggandor/leap.nvim" }
     use { "christoomey/vim-tmux-navigator" }
+    use { "mhartington/formatter.nvim" }
 
     -- LSP
     use {

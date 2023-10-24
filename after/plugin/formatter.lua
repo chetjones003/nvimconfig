@@ -10,6 +10,12 @@ else
             typescript = {
                 require("formatter.filetypes.typescript").prettier
             },
+            python = {
+                require("formatter.filetypes.python").yapf
+            },
+            rust = {
+                require("formatter.filetypes.rust").rust_analyzer
+            },
             ["*"] = {
                 require("formatter.filetypes.any").remove_trailing_whitespace
             },

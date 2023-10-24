@@ -3,7 +3,7 @@ if not lsp_ok then
     return
 end
 
-lsp_zero.on_attach(function(client, bufnr)
+lsp_zero.on_attach(function(_, bufnr)
   lsp_zero.default_keymaps({buffer = bufnr})
 end)
 
@@ -13,17 +13,16 @@ if not rust_ok then
 end
 
 rust_tools.setup({
-  server = {
-    on_attach = function(client, bufnr)
-      vim.keymap.set("n", "<leader>ra", rust_tools.code_action_group.code_action_group, {buffer = bufnr})
-      vim.keymap.set("n", "<leader>rr", rust_tools.runnables.runnables, {buffer = bufnr})
-    end
-  },
   dap = {
     adapter = {
       type = "executable",
-      command = "lldb-vscode",
+      command = "/usr/bin/lldb-vscode-14",
       name = "rt_lldb",
+    },
+  },
+  tools = {
+    hover_actions = {
+        auto_focus = true,
     },
   },
 })

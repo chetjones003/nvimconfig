@@ -1,5 +1,11 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+vim.keymap.set("n", "<A-h>", function ()
+  require("nvterm.terminal").toggle "float"
+end)
+vim.keymap.set("t", "<A-h>", function ()
+  require("nvterm.terminal").toggle "float"
+end)
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

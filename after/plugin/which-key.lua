@@ -135,14 +135,32 @@ local mappings = {
         name = "Treesitter",
         f = {
             name = "Function",
-            a = {"<cmd>TSTextobjectSelect @function.outer<cr>", "Select around function"},
-            i = {"<cmd>TSTextobjectSelect @function.inner<cr>", "Select inside function"},
+            a = { "<cmd>TSTextobjectSelect @function.outer<cr>", "Select around function" },
+            i = { "<cmd>TSTextobjectSelect @function.inner<cr>", "Select inside function" },
         },
         c = {
             name = "Class",
-            a = {"<cmd>TSTextobjectSelect @class.outer<cr>", "Select around class"},
-            i = {"<cmd>TSTextobjectSelect @class.inner<cr>", "Select inside class"},
+            a = { "<cmd>TSTextobjectSelect @class.outer<cr>", "Select around class" },
+            i = { "<cmd>TSTextobjectSelect @class.inner<cr>", "Select inside class" },
         },
+    },
+    r = {
+        name = "Rust",
+        r = { "<cmd>Crun<cr>", "Cargo run" },
+        t = { "<cmd>Ctest<cr>", "Cargo test" },
+        b = { "<cmd>Cbuild<cr>", "Cargo build" },
+        c = { "<cmd>Ccheck<cr>", "Cargo check" },
+        d = { "<cmd>Cdoc<cr>", "Cargo doc" },
+        q = { "<cmd>Cclean<cr>", "Cargo clean" },
+
+    },
+    d = {
+        name = "Dap",
+        b = { "<cmd>DapToggleBreakpoint<cr>", "Toggle Breakpoint" },
+        r = { "<cmd>RustDebuggables<cr>", "Rust Debuggables" },
+        s = { "<cmd>DapStepOver<cr>", "Dap Step Over" },
+        t = { "<cmd>DapTerminate<cr>", "Dap Terminate" },
+        c = { "<cmd>DapContinue<cr>", "Dap Continue" },
     },
 }
 

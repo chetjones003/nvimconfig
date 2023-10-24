@@ -47,6 +47,7 @@ return require("packer").startup(function(use)
     use { "nvim-tree/nvim-web-devicons" }
     use { "folke/which-key.nvim" }
     use { "onsails/lspkind.nvim" }
+    use { "NvChad/nvterm" }
 
     -- Git
     use { "tpope/vim-fugitive" }
@@ -82,6 +83,10 @@ return require("packer").startup(function(use)
     use { "rust-lang/rust.vim" }
     use { "simrat39/rust-tools.nvim" }
     use { "saecki/crates.nvim" }
+
+    -- Debugging
+    use { "mfussenegger/nvim-dap" }
+    use { "rcarriga/nvim-dap-ui" }
 
     if packer_bootstrap then
         require('packer').sync()

@@ -6,7 +6,9 @@ else
         "tsserver",
         "emmet_language_server",
         "cssls",
+        "clangd",
         "rust_analyzer",
+        "hls"
     })
 end
 
@@ -31,7 +33,9 @@ else
             "emmet_language_server",
             "cssls",
             "eslint",
-            "lua_ls"
+            "lua_ls",
+            "clangd",
+            "hls"
         },
         handlers = {
             lsp_zero.default_setup,

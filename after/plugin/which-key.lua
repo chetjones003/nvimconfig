@@ -73,7 +73,13 @@ local mappings = {
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     ["w"] = { "<cmd>w!<CR>", "Save" },
     ["q"] = { "<cmd>q!<CR>", "Quit" },
-    ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+
+    b = {
+      name = "Buffers",
+      d = { "<cmd>bdelete!<cr>", "Close Buffer" },
+      h = { "<cmd>BufferMovePrevious<cr>", "Move buffer previous" },
+      l = { "<cmd>BufferMoveNext<cr>", "Move buffer next" },
+    },
 
     p = {
         name = "Packer",

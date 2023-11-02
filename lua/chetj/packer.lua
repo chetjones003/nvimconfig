@@ -49,6 +49,7 @@ return require("packer").startup(function(use)
   use { "onsails/lspkind.nvim" }
   use { "NvChad/nvterm" }
   use { "norcalli/nvim-colorizer.lua" }
+  use { "romgrk/barbar.nvim" }
 
   -- Git
   use { "tpope/vim-fugitive" }

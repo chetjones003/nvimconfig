@@ -23,3 +23,6 @@ vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv")
 
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+
+vim.keymap.set("n", "<S-l>", vim.cmd.BufferNext)
+vim.keymap.set("n", "<S-h>", vim.cmd.BufferPrevious)

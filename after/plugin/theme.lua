@@ -15,6 +15,8 @@ require("tokyonight").setup({
     highlights.LineNr = { fg = colors.orange }
     highlights.LineNrAbove = {  fg = "#aaaaaa" }
     highlights.LineNrBelow = {  fg = "#aaaaaa" }
+    highlights.BufferCurrent = {  bg = colors.bg_statusline }
+    highlights.BufferInactive = {  bg = colors.bg }
   end,
 })
 

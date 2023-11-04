@@ -17,6 +17,8 @@ require("tokyonight").setup({
     highlights.LineNrBelow = {  fg = "#aaaaaa" }
     highlights.BufferCurrent = {  bg = colors.bg_statusline }
     highlights.BufferInactive = {  bg = colors.bg }
+    highlights.BufferTabpageFill = {  bg = colors.none }
+    highlights.Visual = {  bg = "#555555" }
   end,
 })
 

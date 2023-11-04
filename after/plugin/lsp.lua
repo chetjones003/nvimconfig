@@ -35,7 +35,8 @@ else
             "eslint",
             "lua_ls",
             "clangd",
-            "hls"
+            "hls",
+            "marksman"
         },
         handlers = {
             lsp_zero.default_setup,

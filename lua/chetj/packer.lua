@@ -35,7 +35,7 @@ return require("packer").startup(function(use)
   }
 
   -- UI
-  use { "folke/tokyonight.nvim" }
+  use { "rose-pine/nvim" }
   use {
     "nvim-lualine/lualine.nvim",
     requires = { "nvim-tree/nvim-web-devicons", opt = true }

@@ -3,9 +3,6 @@ if not status_ok then
     return
 end
 
-vim.o.timeout = true
-vim.o.timeoutlen = 50
-
 local setup = {
     plugins = {
         marks = true,

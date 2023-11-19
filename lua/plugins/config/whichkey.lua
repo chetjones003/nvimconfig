@@ -73,21 +73,17 @@ local mappings = {
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     ["w"] = { "<cmd>w!<CR>", "Save" },
     ["q"] = { "<cmd>q!<CR>", "Quit" },
+    ["s"] = { [[:%R$\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace Under Cursor" },
 
     b = {
       name = "Buffers",
       d = { "<cmd>bdelete!<cr>", "Close Buffer" },
-      h = { "<cmd>BufferMovePrevious<cr>", "Move buffer previous" },
-      l = { "<cmd>BufferMoveNext<cr>", "Move buffer next" },
     },
 
     p = {
-        name = "Packer",
-        c = { "<cmd>PackerCompile<cr>", "Compile" },
-        i = { "<cmd>PackerInstall<cr>", "Install" },
-        s = { "<cmd>PackerSync<cr>", "Sync" },
-        S = { "<cmd>PackerStatus<cr>", "Status" },
-        u = { "<cmd>PackerUpdate<cr>", "Update" },
+        name = "Lazy",
+        r = { "<cmd>Lazy reload<cr>", "Reload" },
+        u = { "<cmd>Lazy update<cr>", "Update" },
     },
 
     f = {
@@ -136,37 +132,6 @@ local mappings = {
             "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
             "Workspace Symbols",
         },
-    },
-    t = {
-        name = "Treesitter",
-        f = {
-            name = "Function",
-            a = { "<cmd>TSTextobjectSelect @function.outer<cr>", "Select around function" },
-            i = { "<cmd>TSTextobjectSelect @function.inner<cr>", "Select inside function" },
-        },
-        c = {
-            name = "Class",
-            a = { "<cmd>TSTextobjectSelect @class.outer<cr>", "Select around class" },
-            i = { "<cmd>TSTextobjectSelect @class.inner<cr>", "Select inside class" },
-        },
-    },
-    r = {
-        name = "Rust",
-        r = { "<cmd>Crun<cr>", "Cargo run" },
-        t = { "<cmd>Ctest<cr>", "Cargo test" },
-        b = { "<cmd>Cbuild<cr>", "Cargo build" },
-        c = { "<cmd>Ccheck<cr>", "Cargo check" },
-        d = { "<cmd>Cdoc<cr>", "Cargo doc" },
-        q = { "<cmd>Cclean<cr>", "Cargo clean" },
-
-    },
-    d = {
-        name = "Dap",
-        b = { "<cmd>DapToggleBreakpoint<cr>", "Toggle Breakpoint" },
-        r = { "<cmd>RustDebuggables<cr>", "Rust Debuggables" },
-        s = { "<cmd>DapStepOver<cr>", "Dap Step Over" },
-        t = { "<cmd>DapTerminate<cr>", "Dap Terminate" },
-        c = { "<cmd>DapContinue<cr>", "Dap Continue" },
     },
 }
 

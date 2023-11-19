@@ -1,2 +1,2 @@
-require("chetj")
+require("plugins")
 

@@ -67,7 +67,6 @@ local mappings = {
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
-  ["s"] = { [[:%R$\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace Under Cursor" },
   ["o"] = { "<cmd>copen<cr>", "Open Quickfix" },
   ["m"] = { function ()
     vim.ui.input({ prompt = "Enter macro name: " }, function (input)

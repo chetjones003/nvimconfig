@@ -1,26 +1,31 @@
-require("tokyonight").setup({
-  style = "storm",
-  light_style = "day",
-  transparent = false,
-  terminal_colors = true,
-  styles = {
-    comments = { italic = false },
-    keywords = { italic = false },
-    functions = {},
-    variables = {},
-    sidebars = "dark",
-    floats = "normal",
+require("gruvbox").setup({
+  terminal_colors = true, -- add neovim terminal colors
+  undercurl = false,
+  underline = false,
+  bold = false,
+  italic = {
+    strings = false,
+    emphasis = false,
+    comments = false,
+    operators = false,
+    folds = false,
   },
-  hide_inactive_statusline = false,
-  dim_inactive = true,
-  lualine_bold = false,
-
-  on_highlights = function(highlights, colors)
-    highlights.CmpSel = { bg = colors.blue0 }
-    highlights.LineNr = { fg = colors.green }
-    highlights.LineNrAbove = { fg = colors.comment }
-    highlights.LineNrBelow = { fg = colors.comment }
-  end,
+  strikethrough = false,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {
+    CmpSel = { bg = "#98971a", fg = "#3c3836" },
+    LineNr = { fg = "#fabd2f" },
+    LineNrAbove = { fg = "#928374" },
+    LineNrBelow = { fg = "#928374" },
+  },
+  dim_inactive = false,
+  transparent_mode = false,
 })
 
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd("colorscheme gruvbox")

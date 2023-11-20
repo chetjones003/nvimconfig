@@ -57,14 +57,12 @@ require("lazy").setup({
   },
 
   -- UI
-
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
+    "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function ()
       return require("plugins.config.theme")
-    end
+    end,
   },
 
   {
@@ -104,6 +102,15 @@ require("lazy").setup({
   },
 
   -- MISC
+
+  {
+    "klen/nvim-test",
+    lazy = false,
+    config = function ()
+      return require("nvim-test").setup()
+    end
+  },
+
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",

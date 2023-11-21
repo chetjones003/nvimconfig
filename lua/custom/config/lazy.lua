@@ -1,3 +1,4 @@
+-- [[Bootstrap Lazy]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
@@ -11,7 +12,9 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- [[Lazy Plugins]]
 require("lazy").setup({
+
   -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -27,6 +30,7 @@ require("lazy").setup({
           "python",
           "rust",
           "toml",
+          "typescript",
           "vim",
           "vimdoc",
         },
@@ -56,7 +60,11 @@ require("lazy").setup({
     end
   },
 
-  -- UI
+  -----------------------------------------------------------------------------
+  -- [[UI]]
+  -----------------------------------------------------------------------------
+
+  -- [[Current Theme]]
   {
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
@@ -65,6 +73,7 @@ require("lazy").setup({
     end,
   },
 
+  -- [[Lualine]]
   {
     "nvim-lualine/lualine.nvim",
     requires = { "nvim-tree/nvim-web-devicons", opt = true },
@@ -73,6 +82,7 @@ require("lazy").setup({
     },
   },
 
+  -- [[Nvim Tree]]
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -83,26 +93,32 @@ require("lazy").setup({
     end
   },
 
+  -- [[Which Key]]
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 300
+      vim.o.timeoutlen = 50
     end,
     config = function()
       return require("custom.plugins.whichkey")
     end
   },
 
+  -----------------------------------------------------------------------------
   -- Git
+  -----------------------------------------------------------------------------
   {
     "tpope/vim-fugitive",
     lazy = false,
   },
 
+  -----------------------------------------------------------------------------
   -- MISC
+  -----------------------------------------------------------------------------
 
+  -- [[Automatic Testing]]
   {
     "klen/nvim-test",
     lazy = false,
@@ -111,71 +127,66 @@ require("lazy").setup({
     end
   },
 
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function()
-      require("nvim-autopairs").setup()
-      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      local cmp = require('cmp')
-      cmp.event:on(
-        'confirm_done',
-        cmp_autopairs.on_confirm_done()
-      )
-    end,
-    opts = {
-      disable_filetype = {
-        "TelescopePrompt",
-        "vim",
-      },
-    },
-  },
-
+  -- [[Navigate nvim and tmux]]
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
 
-  {
-    'VonHeikemen/lsp-zero.nvim',
+  -----------------------------------------------------------------------------
+  -- Lsp
+  -----------------------------------------------------------------------------
+  {'williamboman/mason.nvim'},
+  {'williamboman/mason-lspconfig.nvim'},
+  {'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
-    lazy = true,
-    config = false,
-    init = function()
-      vim.g.lsp_zero_extend_cmp = 0
-      vim.g.lsp_zero_extend_lspconfig = 0
+    config = function()
+      require("custom.plugins.lspconfig")
+    end,
+  },
+  {'neovim/nvim-lspconfig'},
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      {
+        -- snippet plugin
+        "L3MON4D3/LuaSnip",
+        dependencies = "rafamadriz/friendly-snippets",
+        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+        config = function(_, opts)
+          require("custom.config.other").luasnip(opts)
+        end,
+      },
+
+      -- autopairing of (){}[] etc
+      {
+        "windwp/nvim-autopairs",
+        opts = {
+          fast_wrap = {},
+          disable_filetype = { "TelescopePrompt", "vim" },
+        },
+        config = function(_, opts)
+          require("nvim-autopairs").setup(opts)
+
+          -- setup cmp for autopairs
+          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end,
+      },
+
+      -- cmp sources plugins
+      {
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+      },
+    },
+    config = function()
+      require("custom.plugins.cmp")
     end,
   },
 
-  {
-    'williamboman/mason.nvim',
-    lazy = false,
-    config = true,
-  },
-
-  -- Autocompletion
-  {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
-    dependencies = {
-      { 'L3MON4D3/LuaSnip' },
-    },
-    config = function()
-      return require("custom.plugins.custom_cmp")
-    end
-  },
-
-  -- LSP
-  {
-    'neovim/nvim-lspconfig',
-    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'williamboman/mason-lspconfig.nvim' },
-    },
-    config = function()
-      return require("custom.plugins.lsp_config")
-    end
-  },
 })

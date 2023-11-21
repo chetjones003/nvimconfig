@@ -25,7 +25,7 @@ require("gruvbox").setup({
     LineNrBelow = { fg = "#928374" },
   },
   dim_inactive = false,
-  transparent_mode = true,
+  transparent_mode = false,
 })
 
 vim.cmd("colorscheme gruvbox")

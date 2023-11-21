@@ -13,6 +13,9 @@ lsp_zero.on_attach(function(_, bufnr)
   lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 
+-------------------------------------------------------------------------------
+-- Lua Setup
+-------------------------------------------------------------------------------
 lspconfig.lua_ls.setup({
   on_init = function(client)
     local path = client.workspace_folders[1].name
@@ -38,4 +41,13 @@ lspconfig.lua_ls.setup({
   end
 })
 
-lspconfig.tsserver.setup({})
+-------------------------------------------------------------------------------
+-- Typescript Setup
+-------------------------------------------------------------------------------
+lspconfig.tsserver.setup({
+  init_options = {
+    preferences = {
+      disableSuggestions = true,
+    },
+  },
+})

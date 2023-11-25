@@ -69,7 +69,7 @@ require("lazy").setup({
     "ellisonleao/gruvbox.nvim",
     priority = 1000,
     config = function ()
-      return require("custom.plugins.theme")
+      return require("cjvim.plugins.theme")
     end,
   },
 
@@ -89,7 +89,7 @@ require("lazy").setup({
     lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      return require("custom.plugins.nvimtree")
+      return require("cjvim.plugins.nvimtree")
     end
   },
 
@@ -102,7 +102,7 @@ require("lazy").setup({
       vim.o.timeoutlen = 50
     end,
     config = function()
-      return require("custom.plugins.whichkey")
+      return require("cjvim.plugins.whichkey")
     end
   },
 
@@ -133,7 +133,7 @@ require("lazy").setup({
   {'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
     config = function()
-      require("custom.plugins.lspconfig")
+      require("cjvim.plugins.lspconfig")
     end,
   },
   {'neovim/nvim-lspconfig'},
@@ -141,7 +141,7 @@ require("lazy").setup({
     "mhartington/formatter.nvim",
     event = "VeryLazy",
     opts = function()
-      return require "custom.plugins.formatter"
+      return require "cjvim.plugins.formatter"
     end
   },
   {
@@ -154,7 +154,7 @@ require("lazy").setup({
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
         config = function(_, opts)
-          require("custom.config.other").luasnip(opts)
+          require("cjvim.config.other").luasnip(opts)
         end,
       },
 
@@ -184,7 +184,7 @@ require("lazy").setup({
       },
     },
     config = function()
-      require("custom.plugins.cmp")
+      require("cjvim.plugins.cmp")
     end,
   },
 

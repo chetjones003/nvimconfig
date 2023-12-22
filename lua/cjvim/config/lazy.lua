@@ -19,11 +19,13 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function ()
+    config = function()
       local configs = require("nvim-treesitter.configs")
       configs.setup({
         ensure_installed = {
           "bash",
+          "c",
+          "cpp",
           "fish",
           "json",
           "lua",
@@ -66,7 +68,8 @@ require("lazy").setup({
 
   -- [[Current Theme]]
   {
-    "ellisonleao/gruvbox.nvim",
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
     config = function ()
       return require("cjvim.plugins.theme")
@@ -114,7 +117,7 @@ require("lazy").setup({
   {
     "klen/nvim-test",
     lazy = false,
-    config = function ()
+    config = function()
       return require("nvim-test").setup()
     end
   },
@@ -128,15 +131,16 @@ require("lazy").setup({
   -----------------------------------------------------------------------------
   -- Lsp
   -----------------------------------------------------------------------------
-  {'williamboman/mason.nvim'},
-  {'williamboman/mason-lspconfig.nvim'},
-  {'VonHeikemen/lsp-zero.nvim',
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  {
+    'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
     config = function()
       require("cjvim.plugins.lspconfig")
     end,
   },
-  {'neovim/nvim-lspconfig'},
+  { 'neovim/nvim-lspconfig' },
   {
     "mhartington/formatter.nvim",
     event = "VeryLazy",
@@ -184,7 +188,7 @@ require("lazy").setup({
       },
     },
     config = function()
-      require("cjvim.plugins.cmp")
+      require("cjvim.plugins.my_cmp")
     end,
   },
 

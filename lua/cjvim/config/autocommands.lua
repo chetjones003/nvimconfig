@@ -62,8 +62,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
-
--- Attempt to format on save
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  command = "FormatWriteLock"
-})

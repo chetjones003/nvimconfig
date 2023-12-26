@@ -19,6 +19,9 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    dependencies = {
+      "nvim-treesitter/playground",
+    },
     config = function()
       local configs = require("nvim-treesitter.configs")
       configs.setup({
@@ -26,6 +29,7 @@ require("lazy").setup({
           "bash",
           "c",
           "cpp",
+          "csv",
           "fish",
           "json",
           "lua",
@@ -71,18 +75,9 @@ require("lazy").setup({
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
-    config = function ()
+    config = function()
       return require("cjvim.plugins.theme")
     end,
-  },
-
-  -- [[Lualine]]
-  {
-    "nvim-lualine/lualine.nvim",
-    requires = { "nvim-tree/nvim-web-devicons", opt = true },
-    opts = {
-      theme = "gruvbox",
-    },
   },
 
   -- [[Nvim Tree]]
@@ -90,37 +85,14 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     version = "*",
     lazy = false,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       return require("cjvim.plugins.nvimtree")
-    end
-  },
-
-  -- [[Which Key]]
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 50
-    end,
-    config = function()
-      return require("cjvim.plugins.whichkey")
     end
   },
 
   -----------------------------------------------------------------------------
   -- MISC
   -----------------------------------------------------------------------------
-
-  -- [[Automatic Testing]]
-  {
-    "klen/nvim-test",
-    lazy = false,
-    config = function()
-      return require("nvim-test").setup()
-    end
-  },
 
   -- [[Navigate nvim and tmux]]
   {
@@ -129,67 +101,92 @@ require("lazy").setup({
   },
 
   -----------------------------------------------------------------------------
-  -- Lsp
+  -- LSP
   -----------------------------------------------------------------------------
-  { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
-    config = function()
-      require("cjvim.plugins.lspconfig")
+    lazy = true,
+    config = false,
+    init = function()
+      -- Disable automatic setup, we are doing it manually
+      vim.g.lsp_zero_extend_cmp = 0
+      vim.g.lsp_zero_extend_lspconfig = 0
     end,
   },
-  { 'neovim/nvim-lspconfig' },
   {
-    "mhartington/formatter.nvim",
-    event = "VeryLazy",
-    opts = function()
-      return require "cjvim.plugins.formatter"
-    end
+    'williamboman/mason.nvim',
+    lazy = false,
+    config = true,
   },
+
+  -- Autocompletion
   {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
     dependencies = {
-      {
-        -- snippet plugin
-        "L3MON4D3/LuaSnip",
-        dependencies = "rafamadriz/friendly-snippets",
-        opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-        config = function(_, opts)
-          require("cjvim.config.other").luasnip(opts)
-        end,
-      },
-
-      -- autopairing of (){}[] etc
-      {
-        "windwp/nvim-autopairs",
-        opts = {
-          fast_wrap = {},
-          disable_filetype = { "TelescopePrompt", "vim" },
-        },
-        config = function(_, opts)
-          require("nvim-autopairs").setup(opts)
-
-          -- setup cmp for autopairs
-          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-        end,
-      },
-
-      -- cmp sources plugins
-      {
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-      },
+      { 'L3MON4D3/LuaSnip' },
     },
     config = function()
-      require("cjvim.plugins.my_cmp")
-    end,
+      -- Here is where you configure the autocompletion settings.
+      local lsp_zero = require('lsp-zero')
+      lsp_zero.extend_cmp()
+
+      -- And you can configure cmp even more, if you want to.
+      local cmp = require('cmp')
+      local cmp_action = lsp_zero.cmp_action()
+      local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
+      cmp.setup({
+        formatting = lsp_zero.cmp_format(),
+        mapping = cmp.mapping.preset.insert({
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+          ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),
+          ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+          ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+        })
+      })
+    end
   },
 
+  -- LSP
+  {
+    'neovim/nvim-lspconfig',
+    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'williamboman/mason-lspconfig.nvim' },
+    },
+    config = function()
+      -- This is where all the LSP shenanigans will live
+      local lsp_zero = require('lsp-zero')
+      lsp_zero.extend_lspconfig()
+      lsp_zero.setup_servers({"rust_analyzer"})
+
+      lsp_zero.on_attach(function(_, bufnr)
+        -- see :help lsp-zero-keybindings
+        -- to learn the available actions
+        lsp_zero.default_keymaps({ buffer = bufnr })
+      end)
+
+      require('mason-lspconfig').setup({
+        ensure_installed = {
+          "rust_analyzer",
+        },
+        handlers = {
+          lsp_zero.default_setup,
+          lua_ls = function()
+            -- (Optional) Configure lua language server for neovim
+            local lua_opts = lsp_zero.nvim_lua_ls()
+            require('lspconfig').lua_ls.setup(lua_opts)
+          end,
+        }
+      })
+    end
+  }
 })

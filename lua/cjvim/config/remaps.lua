@@ -18,7 +18,7 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<S-l>", vim.cmd.bnext)
 vim.keymap.set("n", "<S-h>", vim.cmd.bprevious)
 
-vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeToggle)
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>fj", "<cmd>Telescope commands<cr>")
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")

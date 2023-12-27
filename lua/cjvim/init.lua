@@ -36,4 +36,13 @@ M.plugins = function()
   end
 end
 
+M.theme = function ()
+  local theme_ok, theme = pcall(require, "cjvim.config.theme")
+  if not theme_ok then
+    vim.notify("Theme: " .. theme, vim.log.levels.ERROR)
+  else
+    require("cjvim.config.theme")
+  end
+end
+
 return M

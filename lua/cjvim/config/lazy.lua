@@ -70,28 +70,61 @@ require("lazy").setup({
   -- UI
   -----------------------------------------------------------------------------
 
-  -- [[Current Theme]]
+  -- [[Themes]]
   {
     "rose-pine/neovim",
     name = "rose-pine",
-    config = function()
-      require("cjvim.plugins.theme")
-    end
+    config = function ()
+      return require("rose-pine").setup({
+        --- @usage "auto"|"main"|"moon"|"dawn"
+        variant = "moon",
+        bold_vert_split = true,
+        dim_nc_background = false,
+        disable_background = true,
+        disable_float_background = false,
+        disable_italics = true,
+
+        highlight_groups = {
+          ColorColumn = { bg = "surface" },
+          StatusLine = { fg = "love", bg = "love", blend = 10 },
+          StatusLineNC = { fg = "subtle", bg = "surface" },
+          IncSearch = { bg = "muted", fg = "base", inherit = false },
+        }
+      })
+    end,
   },
 
   {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    opts = {
-      transparent = true,
-      styles = {
-        comments = { italic = false },
-        keywords = { italic = false },
-        sidebars = "dark", -- style for sidebars, see below
-        floats = "dark", -- style for floating windows
-      },
-    },
+    config = function ()
+      return require("tokyonight").setup({
+        transparent = true,
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+          sidebars = "dark", -- style for sidebars, see below
+          floats = "dark",   -- style for floating windows
+        },
+      })
+    end,
+  },
+
+  { "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function ()
+      return require("catppuccin").setup({
+        flavour = "mocha", -- latte, frappe, macchiato, mocha
+        transparent_background = true, -- disables setting the background color.
+        term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+        no_italic = true, -- Force no italic
+        no_bold = true, -- Force no bold
+        no_underline = true, -- Force no underline
+        custom_highlights = {},
+      })
+    end,
   },
 
   -----------------------------------------------------------------------------

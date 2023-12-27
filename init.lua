@@ -5,6 +5,7 @@ else
   cjvim.autocommands()
   cjvim.core_config()
   cjvim.plugins()
+  cjvim.theme()
 end
 
 vim.opt.rtp:append("~/cogo_nvim")

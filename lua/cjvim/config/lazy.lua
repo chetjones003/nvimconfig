@@ -140,6 +140,9 @@ require("lazy").setup({
   -----------------------------------------------------------------------------
   -- LSP
   -----------------------------------------------------------------------------
+
+  -- Collection of functions that will help you setup Neovim's LSP client, 
+  -- so you can get IDE-like features with minimum effort.
   {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
@@ -151,13 +154,16 @@ require("lazy").setup({
       vim.g.lsp_zero_extend_lspconfig = 0
     end,
   },
+
+  -- Portable package manager for Neovim that runs everywhere Neovim runs.
+  -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
   {
     'williamboman/mason.nvim',
     lazy = false,
     config = true,
   },
 
-  -- Autocompletion
+  -- A completion engine plugin for neovim written in Lua (:help cmp)
   {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -172,78 +178,11 @@ require("lazy").setup({
       { 'onsails/lspkind.nvim' },
     },
     config = function()
-      -- Here is where you configure the autocompletion settings.
-      local lsp_zero = require('lsp-zero')
-      lsp_zero.extend_cmp()
-
-      -- And you can configure cmp even more, if you want to.
-      local cmp = require('cmp')
-      local cmp_action = lsp_zero.cmp_action()
-      local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-      cmp.setup({
-        window = {
-          completion = {
-            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-            col_offset = -3,
-            side_padding = 0,
-          },
-        },
-        formatting = {
-          fields = { "kind", "abbr", "menu" },
-          format = function(entry, vim_item)
-            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-            local strings = vim.split(kind.kind, "%s", { trimempty = true })
-            kind.kind = " " .. (strings[1] or "") .. " "
-            kind.menu = "    (" .. (strings[2] or "") .. ")"
-
-            return kind
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
-          ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-          ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-          ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-          ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-        }),
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "nvim_lua" },
-          { name = "path" },
-          { name = "cmdline" },
-        },
-      })
-
-      cmp.setup.cmdline('/', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' }
-        }
-      })
-
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-            {
-              name = 'cmdline',
-              option = {
-                ignore_cmds = { 'Man', '!' }
-              }
-            }
-          })
-      })
+      return require("cjvim.plugins.cmp")
     end
   },
 
-  -- LSP
+  -- Configs for the Nvim LSP client (:help lsp && :help lspconfig-all).
   {
     'neovim/nvim-lspconfig',
     cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
@@ -253,32 +192,12 @@ require("lazy").setup({
       { 'williamboman/mason-lspconfig.nvim' },
     },
     config = function()
-      -- This is where all the LSP shenanigans will live
-      local lsp_zero = require('lsp-zero')
-      lsp_zero.extend_lspconfig()
-      lsp_zero.setup_servers({ "rust_analyzer" })
-
-      lsp_zero.on_attach(function(_, bufnr)
-        -- see :help lsp-zero-keybindings
-        -- to learn the available actions
-        lsp_zero.default_keymaps({ buffer = bufnr })
-      end)
-
-      require('mason-lspconfig').setup({
-        ensure_installed = {
-          "rust_analyzer",
-        },
-        handlers = {
-          lsp_zero.default_setup,
-          lua_ls = function()
-            -- (Optional) Configure lua language server for neovim
-            local lua_opts = lsp_zero.nvim_lua_ls()
-            require('lspconfig').lua_ls.setup(lua_opts)
-          end,
-        }
-      })
+      return require("cjvim.plugins.lspconfig")
     end
   },
+
+  -- This is a Vim plugin that provides Rust file detection, syntax highlighting, 
+  -- formatting, Syntastic integration, and more.
   {
     "rust-lang/rust.vim",
     ft = "rust",
@@ -286,6 +205,8 @@ require("lazy").setup({
       vim.g.rustfmt_autosave = 1
     end
   },
+
+  -- A plugin to improve your rust experience in neovim.
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",

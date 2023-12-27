@@ -176,6 +176,7 @@ require("lazy").setup({
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-cmdline' },
       { 'onsails/lspkind.nvim' },
+      { 'windwp/nvim-autopairs' },
     },
     config = function()
       return require("cjvim.plugins.cmp")

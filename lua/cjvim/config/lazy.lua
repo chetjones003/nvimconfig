@@ -163,6 +163,13 @@ require("lazy").setup({
     event = 'InsertEnter',
     dependencies = {
       { 'L3MON4D3/LuaSnip' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'hrsh7th/cmp-nvim-lua' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'onsails/lspkind.nvim' },
     },
     config = function()
       -- Here is where you configure the autocompletion settings.
@@ -175,7 +182,24 @@ require("lazy").setup({
       local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
       cmp.setup({
-        formatting = lsp_zero.cmp_format(),
+        window = {
+          completion = {
+            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            col_offset = -3,
+            side_padding = 0,
+          },
+        },
+        formatting = {
+          fields = { "kind", "abbr", "menu" },
+          format = function(entry, vim_item)
+            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+            local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            kind.kind = " " .. (strings[1] or "") .. " "
+            kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+            return kind
+          end,
+        },
         mapping = cmp.mapping.preset.insert({
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
@@ -185,7 +209,36 @@ require("lazy").setup({
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
           ['<C-f>'] = cmp_action.luasnip_jump_forward(),
           ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-        })
+        }),
+        sources = {
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "nvim_lua" },
+          { name = "path" },
+          { name = "cmdline" },
+        },
+      })
+
+      cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+            {
+              name = 'cmdline',
+              option = {
+                ignore_cmds = { 'Man', '!' }
+              }
+            }
+          })
       })
     end
   },

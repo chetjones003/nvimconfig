@@ -72,12 +72,11 @@ require("lazy").setup({
 
   -- [[Current Theme]]
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    config = function()
-      return require("cjvim.plugins.theme")
-    end,
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function ()
+      require("cjvim.plugins.theme")
+    end
   },
 
   -- [[Nvim Tree]]
@@ -188,5 +187,29 @@ require("lazy").setup({
         }
       })
     end
-  }
+  },
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function ()
+      vim.g.rustfmt_autosave = 1
+    end
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    config = function ()
+      local rt = require("rust-tools")
+      return rt.setup({
+        server = {
+          on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+          end,
+        }
+      })
+    end,
+  },
 })

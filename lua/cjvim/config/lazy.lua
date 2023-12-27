@@ -74,19 +74,24 @@ require("lazy").setup({
   {
     "rose-pine/neovim",
     name = "rose-pine",
-    config = function ()
+    config = function()
       require("cjvim.plugins.theme")
     end
   },
 
-  -- [[Nvim Tree]]
   {
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
+    "folke/tokyonight.nvim",
     lazy = false,
-    config = function()
-      return require("cjvim.plugins.nvimtree")
-    end
+    priority = 1000,
+    opts = {
+      transparent = true,
+      styles = {
+        comments = { italic = false },
+        keywords = { italic = false },
+        sidebars = "dark", -- style for sidebars, see below
+        floats = "dark", -- style for floating windows
+      },
+    },
   },
 
   -----------------------------------------------------------------------------
@@ -165,7 +170,7 @@ require("lazy").setup({
       -- This is where all the LSP shenanigans will live
       local lsp_zero = require('lsp-zero')
       lsp_zero.extend_lspconfig()
-      lsp_zero.setup_servers({"rust_analyzer"})
+      lsp_zero.setup_servers({ "rust_analyzer" })
 
       lsp_zero.on_attach(function(_, bufnr)
         -- see :help lsp-zero-keybindings
@@ -191,14 +196,14 @@ require("lazy").setup({
   {
     "rust-lang/rust.vim",
     ft = "rust",
-    init = function ()
+    init = function()
       vim.g.rustfmt_autosave = 1
     end
   },
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
-    config = function ()
+    config = function()
       local rt = require("rust-tools")
       return rt.setup({
         server = {

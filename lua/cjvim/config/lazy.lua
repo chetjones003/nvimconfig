@@ -138,6 +138,25 @@ require("lazy").setup({
     end,
   },
 
+  -- NVIM TREE
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons"
+    },
+    config = function ()
+      return require("nvim-tree").setup({
+        view = {
+          width = 30
+        },
+        filters = {
+          dotfiles = false
+        },
+      })
+    end
+  },
   -----------------------------------------------------------------------------
   -- MISC
   -----------------------------------------------------------------------------

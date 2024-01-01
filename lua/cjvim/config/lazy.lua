@@ -53,8 +53,19 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local actions = require("telescope.actions")
+      local telescope_config = require("telescope.config")
+      local vimgrep_arguments = { unpack(telescope_config.values.vimgrep_arguments) }
+      table.insert(vimgrep_arguments, "--hidden")
+      table.insert(vimgrep_arguments, "--glob")
+      table.insert(vimgrep_arguments, "!**/.git/*")
       require("telescope").setup({
         defaults = {
+          vimgrep_arguments = vimgrep_arguments,
+          pickers = {
+            find_files = {
+              find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+            },
+          },
           mappings = {
             i = {
               ["<C-k>"] = actions.move_selection_previous,
@@ -174,7 +185,6 @@ require("lazy").setup({
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-nvim-lua' },
       { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-cmdline' },
       { 'onsails/lspkind.nvim' },
       { 'windwp/nvim-autopairs' },
     },

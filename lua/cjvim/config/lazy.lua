@@ -55,6 +55,7 @@ require("lazy").setup({
       local actions = require("telescope.actions")
       local telescope_config = require("telescope.config")
       local vimgrep_arguments = { unpack(telescope_config.values.vimgrep_arguments) }
+
       table.insert(vimgrep_arguments, "--hidden")
       table.insert(vimgrep_arguments, "--glob")
       table.insert(vimgrep_arguments, "!**/.git/*")
@@ -157,6 +158,15 @@ require("lazy").setup({
       })
     end
   },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {},
+  },
+
   -----------------------------------------------------------------------------
   -- MISC
   -----------------------------------------------------------------------------

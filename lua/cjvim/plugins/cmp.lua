@@ -41,29 +41,7 @@ cmp.setup({
     { name = "buffer" },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "cmdline" },
   },
-})
-
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    {
-      name = 'cmdline',
-      option = {
-        ignore_cmds = { 'Man', '!' }
-      }
-    }
-  })
 })
 
 -- Set up Autopairs to work with cmp

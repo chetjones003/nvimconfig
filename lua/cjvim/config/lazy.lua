@@ -59,6 +59,7 @@ require("lazy").setup({
       table.insert(vimgrep_arguments, "--hidden")
       table.insert(vimgrep_arguments, "--glob")
       table.insert(vimgrep_arguments, "!**/.git/*")
+
       require("telescope").setup({
         defaults = {
           vimgrep_arguments = vimgrep_arguments,

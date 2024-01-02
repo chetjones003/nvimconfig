@@ -180,6 +180,19 @@ require("lazy").setup({
     lazy = false,
   },
 
+  {
+    "lewis6991/gitsigns.nvim",
+    lazy = false,
+    config = function ()
+      return require("gitsigns").setup()
+    end
+  },
+
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+  },
+
   -----------------------------------------------------------------------------
   -- LSP
   -----------------------------------------------------------------------------

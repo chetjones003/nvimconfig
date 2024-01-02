@@ -158,7 +158,16 @@ require("lazy").setup({
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    opts = {},
+    opts = {
+      sections = {
+        lualine_a = {"mode"},
+        lualine_b = {"branch", "diff", "diagnostics"},
+        lualine_c = {"buffers"},
+        lualine_x = {"diagnostics"},
+        lualine_y = {"progress"},
+        lualine_z = {"location"}
+      },
+    },
   },
 
   -----------------------------------------------------------------------------

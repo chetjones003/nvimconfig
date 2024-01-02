@@ -136,6 +136,12 @@ require("lazy").setup({
         no_bold = true, -- Force no bold
         no_underline = true, -- Force no underline
         custom_highlights = {},
+        integrations = {
+          cmp = true,
+          gitsigns = true,
+          nvimtree = true,
+          treesitter = true,
+        },
       })
     end,
   },
@@ -159,6 +165,9 @@ require("lazy").setup({
       "nvim-tree/nvim-web-devicons",
     },
     opts = {
+      options = {
+        theme = "catppuccin",
+      },
       sections = {
         lualine_a = {"mode"},
         lualine_b = {"branch", "diff", "diagnostics"},

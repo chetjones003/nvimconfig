@@ -149,14 +149,7 @@ require("lazy").setup({
       "nvim-tree/nvim-web-devicons"
     },
     config = function ()
-      return require("nvim-tree").setup({
-        view = {
-          width = 30
-        },
-        filters = {
-          dotfiles = false
-        },
-      })
+      return require("cjvim.plugins.nvimtree")
     end
   },
 

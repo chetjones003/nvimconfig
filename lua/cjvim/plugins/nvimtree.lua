@@ -7,7 +7,7 @@ nvim_tree.setup({
         update_cwd = true,
     },
     filters = {
-        dotfiles = true,
+        dotfiles = false,
     },
     renderer = {
         root_folder_modifier = ":t",

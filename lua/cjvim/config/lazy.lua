@@ -197,11 +197,11 @@ require("lazy").setup({
   -- LSP
   -----------------------------------------------------------------------------
 
-  -- Collection of functions that will help you setup Neovim's LSP client, 
+  -- Collection of functions that will help you setup Neovim"s LSP client, 
   -- so you can get IDE-like features with minimum effort.
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
+    "VonHeikemen/lsp-zero.nvim",
+    branch = "v3.x",
     lazy = true,
     config = false,
     init = function()
@@ -214,24 +214,24 @@ require("lazy").setup({
   -- Portable package manager for Neovim that runs everywhere Neovim runs.
   -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
   {
-    'williamboman/mason.nvim',
+    "williamboman/mason.nvim",
     lazy = false,
     config = true,
   },
 
   -- A completion engine plugin for neovim written in Lua (:help cmp)
   {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
     dependencies = {
-      { 'L3MON4D3/LuaSnip' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'hrsh7th/cmp-nvim-lua' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'onsails/lspkind.nvim' },
-      { 'windwp/nvim-autopairs' },
+      { "L3MON4D3/LuaSnip" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-path" },
+      { "hrsh7th/cmp-nvim-lua" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "onsails/lspkind.nvim" },
+      { "windwp/nvim-autopairs" },
     },
     config = function()
       return require("cjvim.plugins.cmp")
@@ -240,12 +240,12 @@ require("lazy").setup({
 
   -- Configs for the Nvim LSP client (:help lsp && :help lspconfig-all).
   {
-    'neovim/nvim-lspconfig',
-    cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
-    event = { 'BufReadPre', 'BufNewFile' },
+    "neovim/nvim-lspconfig",
+    cmd = { "LspInfo", "LspInstall", "LspStart" },
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'williamboman/mason-lspconfig.nvim' },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "williamboman/mason-lspconfig.nvim" },
     },
     config = function()
       return require("cjvim.plugins.lspconfig")

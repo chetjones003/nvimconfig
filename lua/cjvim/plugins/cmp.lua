@@ -9,7 +9,14 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
   window = {
     completion = {
-      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None,CursorLine:CmpSel,FloatBorder:CmpBorder",
+      border = "rounded",
+      col_offset = -3,
+      side_padding = 0,
+    },
+    documentation = {
+      winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel,FloatBorder:CmpDocBorder",
+      border = "rounded",
       col_offset = -3,
       side_padding = 0,
     },

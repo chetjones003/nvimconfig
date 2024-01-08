@@ -94,7 +94,7 @@ require("lazy").setup({
         bold_vert_split = true,
         dim_nc_background = false,
         disable_background = true,
-        disable_float_background = false,
+        disable_float_background = true,
         disable_italics = true,
 
         highlight_groups = {
@@ -102,6 +102,9 @@ require("lazy").setup({
           StatusLine = { fg = "love", bg = "love", blend = 10 },
           StatusLineNC = { fg = "subtle", bg = "surface" },
           IncSearch = { bg = "muted", fg = "base", inherit = false },
+          CmpSel = { bg = "muted", fg = "base" },
+          CmpBorder = { bg = "none", fg = "muted" },
+          CmpDocBorder = { bg = "none", fg = "love" },
         }
       })
     end,
@@ -135,7 +138,11 @@ require("lazy").setup({
         no_italic = true, -- Force no italic
         no_bold = true, -- Force no bold
         no_underline = true, -- Force no underline
-        custom_highlights = {},
+        custom_highlights = function (colors)
+          return {
+            LineNr = { fg = colors.text },
+          }
+        end,
         integrations = {
           cmp = true,
           gitsigns = true,

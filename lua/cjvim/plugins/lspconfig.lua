@@ -4,9 +4,14 @@ lsp_zero.extend_lspconfig()
 lsp_zero.setup_servers({ "rust_analyzer" })
 
 lsp_zero.on_attach(function(_, bufnr)
+  local opts = { buffer = bufnr }
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
   lsp_zero.default_keymaps({ buffer = bufnr })
+  vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+  vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", opts)
+  vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references theme=ivy<cr>", opts)
+  vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics theme=ivy<cr>", opts)
 end)
 
 require('mason-lspconfig').setup({

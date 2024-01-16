@@ -173,7 +173,7 @@ require("lazy").setup({
     },
     opts = {
       options = {
-        theme = "catppuccin",
+        theme = "auto",
       },
       sections = {
         lualine_a = {"mode"},

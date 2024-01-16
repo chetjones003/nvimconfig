@@ -23,3 +23,6 @@ vim.keymap.set("n", "<leader>fj", "<cmd>Telescope commands theme=ivy<cr>")
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files theme=dropdown<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags theme=ivy<cr>")
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=dropdown<cr>")
+
+vim.keymap.set("n", "\"", "<cmd>Telescope registers<cr>")
+vim.keymap.set("i", "<C-r>", "<cmd>Telescope registers<cr>")

@@ -1,6 +1,21 @@
 -- This is where all the LSP shenanigans will live
-local lsp_zero = require('lsp-zero')
+local lsp_zero = require("lsp-zero")
 lsp_zero.extend_lspconfig()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "rust_analyzer",
+    "gopls",
+    "lua_ls"
+  },
+  handlers = {
+    lsp_zero.default_setup,
+    lua_ls = function()
+      -- (Optional) Configure lua language server for neovim
+      local lua_opts = lsp_zero.nvim_lua_ls()
+      require("lspconfig").lua_ls.setup(lua_opts)
+    end,
+  }
+})
 lsp_zero.setup_servers({ "rust_analyzer" })
 
 lsp_zero.on_attach(function(_, bufnr)
@@ -8,22 +23,15 @@ lsp_zero.on_attach(function(_, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
   lsp_zero.default_keymaps({ buffer = bufnr })
-  vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-  vim.keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", opts)
-  vim.keymap.set("n", "<leader>lr", "<cmd>Telescope lsp_references theme=ivy<cr>", opts)
-  vim.keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics theme=ivy<cr>", opts)
+  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+  vim.keymap.set("n", "<leader>lws", function() vim.lsp.buf.workspace_symbol() end, opts)
+  vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, opts)
+  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+  vim.keymap.set("n", "<leader>lca", function() vim.lsp.buf.code_action() end, opts)
+  vim.keymap.set("n", "<leader>lrr", function() vim.lsp.buf.references() end, opts)
+  vim.keymap.set("n", "<leader>lrn", function() vim.lsp.buf.rename() end, opts)
+  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
-require('mason-lspconfig').setup({
-  ensure_installed = {
-    "rust_analyzer",
-  },
-  handlers = {
-    lsp_zero.default_setup,
-    lua_ls = function()
-      -- (Optional) Configure lua language server for neovim
-      local lua_opts = lsp_zero.nvim_lua_ls()
-      require('lspconfig').lua_ls.setup(lua_opts)
-    end,
-  }
-})

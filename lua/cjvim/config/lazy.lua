@@ -85,105 +85,16 @@ require("lazy").setup({
 
   -- [[Themes]]
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function ()
-      return require("rose-pine").setup({
-        --- @usage "auto"|"main"|"moon"|"dawn"
-        variant = "moon",
-        bold_vert_split = true,
-        dim_nc_background = false,
-        disable_background = true,
-        disable_float_background = true,
-        disable_italics = true,
-
-        highlight_groups = {
-          ColorColumn = { bg = "surface" },
-          StatusLine = { fg = "love", bg = "love", blend = 10 },
-          StatusLineNC = { fg = "subtle", bg = "surface" },
-          IncSearch = { bg = "muted", fg = "base", inherit = false },
-          CmpSel = { bg = "muted", fg = "base" },
-          CmpBorder = { bg = "none", fg = "muted" },
-          CmpDocBorder = { bg = "none", fg = "love" },
-        }
-      })
-    end,
-  },
-
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
+    "navarasu/onedark.nvim",
     priority = 1000,
     config = function ()
-      return require("tokyonight").setup({
-        transparent = true,
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-          sidebars = "dark", -- style for sidebars, see below
-          floats = "dark",   -- style for floating windows
+      return require("onedark").setup({
+        style = "darker",
+        code_style = {
+          comments = "none",
         },
       })
-    end,
-  },
-
-  { "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    config = function ()
-      return require("catppuccin").setup({
-        flavour = "mocha", -- latte, frappe, macchiato, mocha
-        transparent_background = true, -- disables setting the background color.
-        term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
-        no_italic = true, -- Force no italic
-        no_bold = true, -- Force no bold
-        no_underline = true, -- Force no underline
-        custom_highlights = function (colors)
-          return {
-            LineNr = { fg = colors.text },
-          }
-        end,
-        integrations = {
-          cmp = true,
-          gitsigns = true,
-          nvimtree = true,
-          treesitter = true,
-        },
-      })
-    end,
-  },
-
-  -- NVIM TREE
-  {
-    "nvim-tree/nvim-tree.lua",
-    version = "*",
-    lazy = false,
-    dependencies = {
-      "nvim-tree/nvim-web-devicons"
-    },
-    config = function ()
-      return require("cjvim.plugins.nvimtree")
     end
-  },
-
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {
-      options = {
-        theme = "auto",
-      },
-      sections = {
-        lualine_a = {"mode"},
-        lualine_b = {"branch", "diff", "diagnostics"},
-        lualine_c = {"buffers"},
-        lualine_x = {"diagnostics"},
-        lualine_y = {"progress"},
-        lualine_z = {"location"}
-      },
-    },
   },
 
   -----------------------------------------------------------------------------
@@ -207,6 +118,11 @@ require("lazy").setup({
   {
     "tpope/vim-fugitive",
     lazy = false,
+  },
+
+  {
+    "stevearc/oil.nvim",
+    opts = {},
   },
 
   -----------------------------------------------------------------------------
@@ -240,13 +156,9 @@ require("lazy").setup({
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      { "L3MON4D3/LuaSnip" },
-      { "saadparwaiz1/cmp_luasnip" },
-      { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
       { "hrsh7th/cmp-nvim-lua" },
       { "hrsh7th/cmp-nvim-lsp" },
-      { "onsails/lspkind.nvim" },
       { "windwp/nvim-autopairs" },
     },
     config = function()
@@ -268,32 +180,4 @@ require("lazy").setup({
     end
   },
 
-  -- This is a Vim plugin that provides Rust file detection, syntax highlighting, 
-  -- formatting, Syntastic integration, and more.
-  {
-    "rust-lang/rust.vim",
-    ft = "rust",
-    init = function()
-      vim.g.rustfmt_autosave = 1
-    end
-  },
-
-  -- A plugin to improve your rust experience in neovim.
-  {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    config = function()
-      local rt = require("rust-tools")
-      return rt.setup({
-        server = {
-          on_attach = function(_, bufnr)
-            -- Hover actions
-            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-            -- Code action groups
-            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-          end,
-        }
-      })
-    end,
-  },
 })

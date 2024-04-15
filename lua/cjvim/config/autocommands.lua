@@ -62,3 +62,12 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
+
+-- Disable auto adding comment characters on newline
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("cj_formatoptions"),
+  pattern = "*",
+  callback = function ()
+    vim.cmd("setlocal formatoptions-=c formatoptions-=r formatoptions-=o")
+  end
+})

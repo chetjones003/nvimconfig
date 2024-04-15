@@ -19,7 +19,7 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<S-l>", vim.cmd.bnext)
 vim.keymap.set("n", "<S-h>", vim.cmd.bprevious)
 
-vim.keymap.set("n", "-", "<cmd>Oil<cr>", {desc = "Open Parent Directory"})
+vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", {desc = "Open Parent Directory"})
 vim.keymap.set("n", "<leader>fj", "<cmd>Telescope commands theme=ivy<cr>")
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files theme=dropdown<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags theme=ivy<cr>")

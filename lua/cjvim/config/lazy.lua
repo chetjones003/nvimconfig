@@ -90,6 +90,7 @@ require("lazy").setup({
     config = function ()
       return require("onedark").setup({
         style = "darker",
+        transparent = true,
         code_style = {
           comments = "none",
         },

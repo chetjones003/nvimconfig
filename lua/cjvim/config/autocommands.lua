@@ -8,6 +8,14 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   command = "checktime",
 })
 
+-- Format on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = augroup("format_on_save"),
+  callback = function ()
+    vim.lsp.buf.format()
+  end
+})
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_yank"),

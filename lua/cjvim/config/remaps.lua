@@ -19,8 +19,12 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<S-l>", vim.cmd.bnext)
 vim.keymap.set("n", "<S-h>", vim.cmd.bprevious)
 
-vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", {desc = "Open Parent Directory"})
+vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", { desc = "Open Parent Directory" })
 vim.keymap.set("n", "<leader>fj", "<cmd>Telescope commands theme=ivy<cr>")
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files theme=ivy<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags theme=ivy<cr>")
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>")
+
+vim.keymap.set("n", "<leader>w", ":w<cr>")
+vim.keymap.set("n", "<leader>q", ":qa!<cr>")
+vim.keymap.set("n", "<leader>so", "<cmd>so<cr>")

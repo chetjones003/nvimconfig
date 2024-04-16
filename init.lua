@@ -5,5 +5,7 @@ else
   cjvim.autocommands()
   cjvim.core_config()
   cjvim.plugins()
-  cjvim.theme()
 end
+
+-- [[Set colorscheme here]]
+vim.cmd("colorscheme onedark")

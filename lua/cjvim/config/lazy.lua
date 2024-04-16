@@ -12,30 +12,19 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- [[Lazy Plugins]]
 require("lazy").setup({
 
-  -- Treesitter
+  -- [[Treesitter]]
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    dependencies = {
-      "nvim-treesitter/playground",
-    },
     config = function()
       local configs = require("nvim-treesitter.configs")
       configs.setup({
         ensure_installed = {
-          "bash",
-          "c",
-          "cpp",
-          "csv",
-          "fish",
-          "json",
           "lua",
-          "python",
           "rust",
-          "toml",
+          "go",
           "typescript",
           "vim",
           "vimdoc",
@@ -46,7 +35,7 @@ require("lazy").setup({
     end
   },
 
-  -- Telescope
+  -- [[Telescope]]
   {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.3",
@@ -83,7 +72,7 @@ require("lazy").setup({
   -- UI
   -----------------------------------------------------------------------------
 
-  -- [[Themes]]
+  -- [[Theme]]
   {
     "navarasu/onedark.nvim",
     priority = 1000,
@@ -108,6 +97,7 @@ require("lazy").setup({
     lazy = false,
   },
 
+  -- [[Git integration for vims signcolumn]]
   {
     "lewis6991/gitsigns.nvim",
     lazy = false,
@@ -116,11 +106,13 @@ require("lazy").setup({
     end
   },
 
+  -- [[The best Git plugin]]
   {
     "tpope/vim-fugitive",
     lazy = false,
   },
 
+  -- [[The best file tree]]
   {
     "stevearc/oil.nvim",
     opts = {},

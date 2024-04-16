@@ -21,6 +21,6 @@ vim.keymap.set("n", "<S-h>", vim.cmd.bprevious)
 
 vim.keymap.set("n", "<leader>e", "<cmd>Oil<cr>", {desc = "Open Parent Directory"})
 vim.keymap.set("n", "<leader>fj", "<cmd>Telescope commands theme=ivy<cr>")
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files theme=dropdown<cr>")
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files theme=ivy<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags theme=ivy<cr>")
-vim.keymap.set("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=dropdown<cr>")
+vim.keymap.set("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>")

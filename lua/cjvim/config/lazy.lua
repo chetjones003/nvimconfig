@@ -76,7 +76,7 @@ require("lazy").setup({
   {
     "navarasu/onedark.nvim",
     priority = 1000,
-    config = function ()
+    config = function()
       return require("onedark").setup({
         style = "darker",
         transparent = true,
@@ -101,7 +101,7 @@ require("lazy").setup({
   {
     "lewis6991/gitsigns.nvim",
     lazy = false,
-    config = function ()
+    config = function()
       return require("gitsigns").setup()
     end
   },
@@ -112,17 +112,19 @@ require("lazy").setup({
     lazy = false,
   },
 
-  -- [[The best file tree]]
   {
-    "stevearc/oil.nvim",
-    opts = {},
+    'echasnovski/mini.files',
+    version = false,
+    config = function()
+      return require("mini.files").setup()
+    end
   },
 
   -----------------------------------------------------------------------------
   -- LSP
   -----------------------------------------------------------------------------
 
-  -- Collection of functions that will help you setup Neovim"s LSP client, 
+  -- Collection of functions that will help you setup Neovim"s LSP client,
   -- so you can get IDE-like features with minimum effort.
   {
     "VonHeikemen/lsp-zero.nvim",

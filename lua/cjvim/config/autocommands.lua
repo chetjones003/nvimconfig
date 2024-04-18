@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 -- Format on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup("format_on_save"),
-  callback = function ()
+  callback = function()
     vim.lsp.buf.format()
   end
 })
@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "neotest-summary",
     "neotest-output-panel",
   },
-  callback = function (event)
+  callback = function(event)
     vim.bo[event.buf].buflisted = false
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("wrap_spell"),
   pattern = { "gitcommit", "markdown" },
-  callback = function ()
+  callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
   end,
@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("cj_formatoptions"),
   pattern = "*",
-  callback = function ()
+  callback = function()
     vim.cmd("setlocal formatoptions-=c formatoptions-=r formatoptions-=o")
   end
 })

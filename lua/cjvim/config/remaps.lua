@@ -28,3 +28,5 @@ vim.keymap.set("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find them
 vim.keymap.set("n", "<leader>w", ":w<cr>")
 vim.keymap.set("n", "<leader>q", ":qa!<cr>")
 vim.keymap.set("n", "<leader>so", "<cmd>so<cr>")
+
+vim.keymap.set("n", "<leader>lt", "<cmd>TroubleToggle workspace_diagnostics<cr>")

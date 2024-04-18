@@ -7,5 +7,9 @@ else
   cjvim.plugins()
 end
 
+require("notify").setup({
+  background_colour = "#ffffff",
+})
+
 -- [[Set colorscheme here]]
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme tokyonight-moon")

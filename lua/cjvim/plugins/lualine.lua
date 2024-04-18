@@ -3,7 +3,7 @@ local lualine = require("lualine")
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
-  bg       = "#222436",
+  bg       = "#1e2030",
   fg       = "#c8d3f5",
   yellow   = "#ffc777",
   cyan     = "#86e1fc",
@@ -86,7 +86,7 @@ ins_left {
 ins_left {
   -- mode component
   function()
-    return ""
+    return ""
   end,
   color = function()
     -- auto change color according to neovims mode

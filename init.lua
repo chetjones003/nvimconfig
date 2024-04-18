@@ -8,7 +8,7 @@ else
 end
 
 require("notify").setup({
-  background_colour = "#ffffff",
+  background_colour = "#000000",
 })
 
 -- [[Set colorscheme here]]

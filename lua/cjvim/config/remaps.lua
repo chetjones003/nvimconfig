@@ -24,6 +24,7 @@ vim.keymap.set("n", "<leader>fj", "<cmd>Telescope commands theme=ivy<cr>")
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files theme=ivy<cr>")
 vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags theme=ivy<cr>")
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>")
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers theme=ivy<cr>")
 
 vim.keymap.set("n", "<leader>w", ":w<cr>")
 vim.keymap.set("n", "<leader>q", ":qa!<cr>")

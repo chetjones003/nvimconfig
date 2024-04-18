@@ -28,6 +28,10 @@ require("lazy").setup({
           "typescript",
           "vim",
           "vimdoc",
+          "regex",
+          "bash",
+          "markdown",
+          "markdown_inline",
         },
         highlight = { enable = true },
         indent = { enable = true },
@@ -91,14 +95,19 @@ require("lazy").setup({
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    opts = {},
+    opts = {
+      styles = {
+        comments = { italic = true },
+        keywords = { italic = false },
+      },
+    },
   },
 
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      return require("lualine").setup()
+      return require("cjvim.plugins.lualine")
     end
   },
 
@@ -113,6 +122,9 @@ require("lazy").setup({
     },
     config = function()
       return require("noice").setup({
+        cmdline = {
+          view = "cmdline_popup"
+        },
         lsp = {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {

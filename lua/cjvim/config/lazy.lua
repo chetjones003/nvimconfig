@@ -111,10 +111,11 @@ require("lazy").setup({
         name = "rose-pine",
         priority = 1000,
         opts = {
+            dim_inactive_windows = true,
             styles = {
                 bold = true,
                 italic = false,
-                transparency = true,
+                transparency = false,
             },
         }
     },

@@ -36,6 +36,15 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
     end,
 })
 
+-- no line numbers terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = augroup("term-open"),
+    callback = function()
+        vim.cmd("set ft=ps1")
+        vim.cmd("setlocal nonumber norelativenumber")
+    end
+})
+
 -- Close some filetypes with q
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup("close_with_q"),
@@ -54,6 +63,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "checkhealth",
         "neotest-summary",
         "neotest-output-panel",
+        "ps1",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false
@@ -79,3 +89,18 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.cmd("setlocal formatoptions-=c formatoptions-=r formatoptions-=o")
     end
 })
+
+vim.api.nvim_create_user_command("GoRunFile", function()
+    vim.cmd("split")
+    vim.cmd("terminal go run main.go")
+end, {})
+
+vim.api.nvim_create_user_command("GoTestProject", function()
+    vim.cmd("split")
+    vim.cmd("terminal go test")
+end, {})
+
+vim.api.nvim_create_user_command("GoTestFile", function()
+    vim.cmd("split")
+    vim.cmd("terminal go test %")
+end, {})

@@ -31,5 +31,3 @@ vim.keymap.set("n", "<leader>q", ":qa!<cr>")
 vim.keymap.set("n", "<leader>so", "<cmd>so<cr>")
 
 vim.keymap.set("n", "<leader>lt", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-
-vim.keymap.set("n", "<leader>grf", "<cmd>split | terminal go run main.go<cr>")

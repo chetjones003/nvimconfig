@@ -77,30 +77,46 @@ require("lazy").setup({
     -----------------------------------------------------------------------------
 
     -- [[Theme]]
-    {
-        "navarasu/onedark.nvim",
-        priority = 1000,
-        config = function()
-            return require("onedark").setup({
-                style = "darker",
-                transparent = true,
-                code_style = {
-                    comments = "none",
-                },
-            })
-        end
-    },
+    --    {
+    --        "navarasu/onedark.nvim",
+    --        priority = 1000,
+    --        config = function()
+    --            return require("onedark").setup({
+    --                style = "darker",
+    --                transparent = true,
+    --                code_style = {
+    --                    comments = "none",
+    --                },
+    --            })
+    --        end
+    --    },
+    --
+    --    {
+    --        "folke/tokyonight.nvim",
+    --        lazy = false,
+    --        priority = 1000,
+    --        opts = {
+    --            transparent = true,
+    --            styles = {
+    --                comments = { italic = true },
+    --                keywords = { bold = true, italic = false },
+    --                sidebaars = "transparent",
+    --                floats = "transparent",
+    --            },
+    --        },
+    --    },
 
     {
-        "folke/tokyonight.nvim",
-        lazy = false,
+        "rose-pine/neovim",
+        name = "rose-pine",
         priority = 1000,
         opts = {
             styles = {
-                comments = { italic = true },
-                keywords = { italic = false },
+                bold = true,
+                italic = false,
+                transparency = true,
             },
-        },
+        }
     },
 
     {
@@ -109,9 +125,7 @@ require("lazy").setup({
         config = function()
             return require("lualine").setup({
                 options = {
-                    theme = "tokyonight",
-                    component_separators = { left = "", right = "" },
-                    section_separators = { left = "", right = "" },
+                    theme = "rose-pine",
                 },
                 sections = {
                     lualine_a = { "mode" },

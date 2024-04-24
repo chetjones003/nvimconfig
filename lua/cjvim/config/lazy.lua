@@ -107,15 +107,14 @@ require("lazy").setup({
     --    },
 
     {
-        "rose-pine/neovim",
-        name = "rose-pine",
+        "navarasu/onedark.nvim",
         priority = 1000,
         opts = {
-            dim_inactive_windows = true,
-            styles = {
-                bold = true,
-                italic = false,
-                transparency = false,
+            style = "cool",
+            transparent = true,
+            code_style = {
+                comments = "italic",
+                keywords = "bold",
             },
         }
     },
@@ -126,7 +125,7 @@ require("lazy").setup({
         config = function()
             return require("lualine").setup({
                 options = {
-                    theme = "rose-pine",
+                    theme = "auto",
                 },
                 sections = {
                     lualine_a = { "mode" },

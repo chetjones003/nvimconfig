@@ -24,4 +24,4 @@ LSP_CLIENT = function()
 end
 
 -- [[Set colorscheme here]]
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme tokyonight")

@@ -1,6 +1,6 @@
 -- [[Bootstrap Lazy]]
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",
@@ -25,6 +25,7 @@ require("lazy").setup({
                     "lua",
                     "rust",
                     "go",
+                    "python",
                     "typescript",
                     "vim",
                     "vimdoc",
@@ -44,32 +45,27 @@ require("lazy").setup({
         "nvim-telescope/telescope.nvim",
         tag = "0.1.3",
         dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            local actions = require("telescope.actions")
-            local telescope_config = require("telescope.config")
-            local vimgrep_arguments = { unpack(telescope_config.values.vimgrep_arguments) }
-
-            table.insert(vimgrep_arguments, "--hidden")
-            table.insert(vimgrep_arguments, "--glob")
-            table.insert(vimgrep_arguments, "!**/.git/*")
-
-            require("telescope").setup({
-                defaults = {
-                    vimgrep_arguments = vimgrep_arguments,
-                    pickers = {
-                        find_files = {
-                            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-                        },
-                    },
-                    mappings = {
-                        i = {
-                            ["<C-k>"] = actions.move_selection_previous,
-                            ["<C-j>"] = actions.move_selection_next,
-                        },
-                    },
+        opts = {
+            pickers = {
+                find_files = {
+                    hidden = true,
                 },
-            })
-        end
+            },
+            defaults = {
+                file_ignore_patterns = {
+                    "git", "build", "dist", "yarn.lock", "node_modules"
+                },
+                ripgrep_arguments = {
+                    'rg',
+                    '--hidden',
+                    '--no-heading',
+                    '--with-filename',
+                    '--line-number',
+                    '--column',
+                    '--smart-case'
+                },
+            },
+        },
     },
 
     -----------------------------------------------------------------------------
@@ -77,46 +73,19 @@ require("lazy").setup({
     -----------------------------------------------------------------------------
 
     -- [[Theme]]
-    --    {
-    --        "navarasu/onedark.nvim",
-    --        priority = 1000,
-    --        config = function()
-    --            return require("onedark").setup({
-    --                style = "darker",
-    --                transparent = true,
-    --                code_style = {
-    --                    comments = "none",
-    --                },
-    --            })
-    --        end
-    --    },
-    --
-    --    {
-    --        "folke/tokyonight.nvim",
-    --        lazy = false,
-    --        priority = 1000,
-    --        opts = {
-    --            transparent = true,
-    --            styles = {
-    --                comments = { italic = true },
-    --                keywords = { bold = true, italic = false },
-    --                sidebaars = "transparent",
-    --                floats = "transparent",
-    --            },
-    --        },
-    --    },
-
     {
-        "navarasu/onedark.nvim",
+        "folke/tokyonight.nvim",
+        lazy = false,
         priority = 1000,
         opts = {
-            style = "cool",
             transparent = true,
-            code_style = {
-                comments = "italic",
-                keywords = "bold",
+            styles = {
+                comments = { italic = true },
+                keywords = { bold = true, italic = false },
+                sidebaars = "dark",
+                floats = "dark",
             },
-        }
+        },
     },
 
     {
@@ -173,9 +142,7 @@ require("lazy").setup({
     {
         "echasnovski/mini.files",
         version = false,
-        config = function()
-            return require("mini.files").setup()
-        end
+        opts = {},
     },
 
     -----------------------------------------------------------------------------
@@ -208,9 +175,13 @@ require("lazy").setup({
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
+        lazy = false,
+        priority = 100,
         dependencies = {
-            { "L3MON4D3/LuaSnip" },
+            { "onsails/lspkind.nvim" },
+            { "L3MON4D3/LuaSnip",     build = "make install_jsregexp" },
             { "hrsh7th/cmp-path" },
+            { "hrsh7th/cmp-buffer" },
             { "hrsh7th/cmp-nvim-lua" },
             { "hrsh7th/cmp-nvim-lsp" },
             { "windwp/nvim-autopairs" },
@@ -233,4 +204,13 @@ require("lazy").setup({
             return require("cjvim.plugins.lspconfig")
         end
     },
+
+    {
+        "nvimtools/none-ls.nvim",
+        ft = { "python" },
+        opts = function()
+            return require("cjvim.plugins.null-ls")
+        end
+    },
+
 })

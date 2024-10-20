@@ -1,3 +1,4 @@
+-- Helper function for creating augroups
 local function augroup(name)
     return vim.api.nvim_create_augroup("custom_" .. name, { clear = true })
 end
@@ -90,6 +91,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
+-- User Commands --
 vim.api.nvim_create_user_command("GoRunFile", function()
     vim.cmd("split")
     vim.cmd("terminal go run main.go")

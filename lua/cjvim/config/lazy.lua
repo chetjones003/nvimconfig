@@ -23,10 +23,7 @@ require("lazy").setup({
             configs.setup({
                 ensure_installed = {
                     "lua",
-                    "rust",
                     "go",
-                    "python",
-                    "typescript",
                     "vim",
                     "vimdoc",
                     "regex",
@@ -74,44 +71,36 @@ require("lazy").setup({
 
     -- [[Theme]]
     {
-        "folke/tokyonight.nvim",
+        "rose-pine/neovim",
+        name = "rose-pine",
         lazy = false,
         priority = 1000,
         opts = {
-            transparent = true,
             styles = {
-                comments = { italic = true },
-                keywords = { bold = true, italic = false },
-                sidebaars = "dark",
-                floats = "dark",
+                bold = false,
+                italic = false,
+                transparency = true,
             },
         },
-    },
-
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            return require("lualine").setup({
-                options = {
-                    theme = "auto",
-                },
-                sections = {
-                    lualine_a = { "mode" },
-                    lualine_b = { "branch", "diff", "diagnostics" },
-                    lualine_c = { "buffers" },
-                    lualine_x = { "LSP_CLIENT()" },
-                    lualine_y = { "progress" },
-                    lualine_z = { "location" }
-                },
-            })
-        end
     },
 
     {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {},
+    },
+
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {},
+        config = function()
+            local wk = require("which-key")
+            wk.add({
+                { "<leader>f", group = "find" },
+                { "<leader>l", group = "lsp" },
+            })
+        end
     },
 
     -----------------------------------------------------------------------------
@@ -137,12 +126,6 @@ require("lazy").setup({
     {
         "tpope/vim-fugitive",
         lazy = false,
-    },
-
-    {
-        "echasnovski/mini.files",
-        version = false,
-        opts = {},
     },
 
     -----------------------------------------------------------------------------
@@ -202,14 +185,6 @@ require("lazy").setup({
         },
         config = function()
             return require("cjvim.plugins.lspconfig")
-        end
-    },
-
-    {
-        "nvimtools/none-ls.nvim",
-        ft = { "python" },
-        opts = function()
-            return require("cjvim.plugins.null-ls")
         end
     },
 

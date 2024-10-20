@@ -4,7 +4,6 @@ lsp_zero.extend_cmp()
 local lspkind = require("lspkind")
 lspkind.init {}
 
--- And you can configure cmp even more, if you want to.
 local cmp = require('cmp')
 
 local kind_icons = {
@@ -62,9 +61,8 @@ cmp.setup({
     formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
-            -- Kind icons
-            --vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-            vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+            vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+            -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
             vim_item.menu = ({
                 nvim_lsp = "[LSP]",
                 luasnip = "[Snippet]",
@@ -96,6 +94,7 @@ cmp.event:on(
     cmp_autopairs.on_confirm_done()
 )
 
+-- LuaSnip Section
 local ls = require("luasnip")
 ls.config.set_config {
     history = false,

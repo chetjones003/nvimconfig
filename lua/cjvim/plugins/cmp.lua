@@ -1,6 +1,3 @@
-local lsp_zero = require('lsp-zero')
-lsp_zero.extend_cmp()
-
 local lspkind = require("lspkind")
 lspkind.init {}
 
@@ -53,11 +50,6 @@ cmp.setup({
             { "i", "c" }
         )
     },
-    snippet = {
-        expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-        end
-    },
     formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
@@ -93,22 +85,3 @@ cmp.event:on(
     "confirm_done",
     cmp_autopairs.on_confirm_done()
 )
-
--- LuaSnip Section
-local ls = require("luasnip")
-ls.config.set_config {
-    history = false,
-    updateevents = "TextChanged,TextChangedI",
-}
-
-vim.keymap.set({ "i", "s" }, "<c-k>", function()
-    if ls.expand_or_jumpable() then
-        ls.expand_or_jump()
-    end
-end, { silent = true })
-
-vim.keymap.set({ "i", "s" }, "<c-j>", function()
-    if ls.jumpable(-1) then
-        ls.jump(-1)
-    end
-end, { silent = true })

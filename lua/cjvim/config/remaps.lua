@@ -19,15 +19,19 @@ vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("n", "<S-l>", vim.cmd.bnext)
 vim.keymap.set("n", "<S-h>", vim.cmd.bprevious)
 
-vim.keymap.set("n", "<leader>e", ":Ex<cr>", { desc = "Explorer" })
-vim.keymap.set("n", "<leader>fj", "<cmd>Telescope commands<cr>", { desc = "Nvim Commands" })
-vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Files" })
-vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Tags" })
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>", { desc = "[E]xplorer" })
+vim.keymap.set("n", "<leader>fj", "<cmd>Telescope commands<cr>", { desc = "Find [C]ommands" })
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find [F]iles" })
+vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Find [H]elp" })
 vim.keymap.set("n", "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>",
-    { desc = "Fuzzy Buffer Search" })
-vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
+    { desc = "Fuzzy [S]earch" })
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find [B]uffers" })
 
-vim.keymap.set("n", "<leader>w", ":w<cr>", { desc = "Save File" })
-vim.keymap.set("n", "<leader>q", ":qa!<cr>", { desc = "Quit" })
+vim.keymap.set("n", "<leader>w", ":w<cr>", { desc = "[W]rite" })
+vim.keymap.set("n", "<leader>q", ":qa!<cr>", { desc = "[Q]uit" })
 
-vim.keymap.set("n", "<leader>lt", "<cmd>Trouble diagnostics<cr>", { desc = "Trouble Diagnostics" })
+
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })

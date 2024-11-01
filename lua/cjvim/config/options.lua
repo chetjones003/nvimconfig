@@ -1,3 +1,8 @@
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.inccommand = 'split'
+vim.opt.cursorline = true
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -35,3 +40,6 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.shortmess:append "c"
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1

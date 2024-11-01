@@ -1,54 +1,54 @@
-local lsp_zero = require("lsp-zero")
-lsp_zero.extend_lspconfig()
-require("mason-lspconfig").setup({
-    ensure_installed = {
-        "lua_ls",
-        "gopls",
-    },
+local servers = {
+    gopls = {},
+    tsserver = {},
+    tailwindcss = {},
+    eslint = {},
+    lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim", }, disable = { 'missing-fields' }, }, }, }, },
+}
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+    callback = function(event)
+        local map = function(keys, func, desc, mode)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+        end
+        map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+        map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+        map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+        map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+        map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+        map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+        map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+        map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    end,
+})
+
+-- Change diagnostic symbols in the sign column (gutter)
+if vim.g.have_nerd_font then
+    local signs = { Error = '', Warn = '', Hint = '', Info = '' }
+    for type, icon in pairs(signs) do
+        local hl = 'DiagnosticSign' .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    end
+end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+require('mason').setup()
+
+local ensure_installed = vim.tbl_keys(servers or {})
+vim.list_extend(ensure_installed, {})
+require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+require('mason-lspconfig').setup {
     handlers = {
-        lsp_zero.default_setup,
-        lua_ls = function()
-            local lua_opts = lsp_zero.nvim_lua_ls()
-            require("lspconfig").lua_ls.setup(lua_opts)
+        function(server_name)
+            local server = servers[server_name] or {}
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            require('lspconfig')[server_name].setup(server)
         end,
-    }
-})
-lsp_zero.setup_servers({ "gopls" })
-
-lsp_zero.on_attach(function(_, bufnr)
-    local opts = { buffer = bufnr }
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
-    lsp_zero.default_keymaps({ buffer = bufnr })
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("n", "<leader>ls", function() vim.lsp.buf.workspace_symbol() end,
-        { desc = "Workspace Symbol", buffer = bufnr })
-    vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "Open Float", buffer = bufnr })
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("n", "<leader>la", function() vim.lsp.buf.code_action() end, { desc = "Code Action", buffer = bufnr })
-    vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.references() end, { desc = "References", buffer = bufnr })
-    vim.keymap.set("n", "<leader>ln", function() vim.lsp.buf.rename() end, { desc = "Rename", buffer = bufnr })
-    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
-
-local lspconfig = require("lspconfig")
-
-lspconfig.lua_ls.setup({
-    settings = {
-        Lua = {
-            runtime = {
-                version = "LuaJIT",
-            },
-            diagnostics = {
-                globals = { "vim" },
-            },
-            workspace = {
-                library = {
-                    vim.env.VIMRUNTIME,
-                },
-            },
-        },
     },
-})
+}

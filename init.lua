@@ -6,6 +6,3 @@ else
     cjvim.core()
     cjvim.plugins()
 end
-
--- [[Set colorscheme here]]
-vim.cmd("colorscheme rose-pine")

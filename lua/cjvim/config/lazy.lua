@@ -69,57 +69,12 @@ require("lazy").setup({
     -- UI
     -----------------------------------------------------------------------------
 
-    -- [[Theme]]
     {
-        "rose-pine/neovim",
-        name = "rose-pine",
-        lazy = false,
+        'folke/tokyonight.nvim',
         priority = 1000,
-        opts = {
-            styles = {
-                bold = false,
-                italic = false,
-                transparency = true,
-            },
-        },
-    },
-
-    {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {},
-    },
-
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        opts = {},
-        config = function()
-            local wk = require("which-key")
-            wk.add({
-                { "<leader>f", group = "find" },
-                { "<leader>l", group = "lsp" },
-            })
-        end
-    },
-
-    -----------------------------------------------------------------------------
-    -- MISC
-    -----------------------------------------------------------------------------
-
-    -- [[Navigate nvim and tmux]]
-    {
-        "christoomey/vim-tmux-navigator",
-        lazy = false,
-    },
-
-    -- [[Git integration for vims signcolumn]]
-    {
-        "lewis6991/gitsigns.nvim",
-        lazy = false,
-        config = function()
-            return require("gitsigns").setup()
-        end
+        init = function()
+            vim.cmd.colorscheme 'tokyonight-night'
+        end,
     },
 
     -- [[The best Git plugin]]
@@ -128,30 +83,74 @@ require("lazy").setup({
         lazy = false,
     },
 
+    {
+        'folke/todo-comments.nvim',
+        event = 'VimEnter',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        opts = { signs = false }
+    },
+
+    {
+        "nvim-tree/nvim-tree.lua",
+        opts = {
+            sort = {
+                sorter = "case_sensitive",
+            },
+            view = {
+                width = 30,
+            },
+            renderer = {
+                group_empty = true,
+            },
+            filters = {
+                dotfiles = true,
+            },
+        }
+    },
+
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        opts = {
+            sections = {
+                lualine_a = { 'mode' },
+                lualine_b = { 'branch', 'diff', 'diagnostics' },
+                lualine_c = { 'filename' },
+                lualine_x = { 'filetype' },
+                lualine_y = { 'progress' },
+                lualine_z = { 'location' }
+            },
+        },
+    },
+
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {
+            spec = {
+                { '<leader>c', group = '[C]ode',    mode = { 'n', 'x' } },
+                { '<leader>d', group = '[D]ocument' },
+                { '<leader>r', group = '[R]ename' },
+                { '<leader>f', group = '[F]ile' },
+            },
+        },
+    },
+
     -----------------------------------------------------------------------------
     -- LSP
     -----------------------------------------------------------------------------
-
-    -- Collection of functions that will help you setup Neovim"s LSP client,
-    -- so you can get IDE-like features with minimum effort.
     {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v3.x",
-        lazy = true,
-        config = false,
-        init = function()
-            -- Disable automatic setup, we are doing it manually
-            vim.g.lsp_zero_extend_cmp = 0
-            vim.g.lsp_zero_extend_lspconfig = 0
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            { 'williamboman/mason.nvim', config = true },
+            'williamboman/mason-lspconfig.nvim',
+            'WhoIsSethDaniel/mason-tool-installer.nvim',
+            { 'j-hui/fidget.nvim',       opts = {} },
+            'hrsh7th/cmp-nvim-lsp',
+        },
+        config = function()
+            return require("cjvim.plugins.lspconfig")
         end,
-    },
-
-    -- Portable package manager for Neovim that runs everywhere Neovim runs.
-    -- Easily install and manage LSP servers, DAP servers, linters, and formatters.
-    {
-        "williamboman/mason.nvim",
-        lazy = false,
-        config = true,
     },
 
     -- A completion engine plugin for neovim written in Lua (:help cmp)
@@ -162,9 +161,7 @@ require("lazy").setup({
         priority = 100,
         dependencies = {
             { "onsails/lspkind.nvim" },
-            { "L3MON4D3/LuaSnip",     build = "make install_jsregexp" },
             { "hrsh7th/cmp-path" },
-            { "hrsh7th/cmp-buffer" },
             { "hrsh7th/cmp-nvim-lua" },
             { "hrsh7th/cmp-nvim-lsp" },
             { "windwp/nvim-autopairs" },
@@ -173,19 +170,4 @@ require("lazy").setup({
             return require("cjvim.plugins.cmp")
         end
     },
-
-    -- Configs for the Nvim LSP client (:help lsp && :help lspconfig-all).
-    {
-        "neovim/nvim-lspconfig",
-        cmd = { "LspInfo", "LspInstall", "LspStart" },
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = {
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "williamboman/mason-lspconfig.nvim" },
-        },
-        config = function()
-            return require("cjvim.plugins.lspconfig")
-        end
-    },
-
 })

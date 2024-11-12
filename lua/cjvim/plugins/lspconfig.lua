@@ -1,8 +1,9 @@
 local servers = {
     gopls = {},
-    tsserver = {},
+    ts_ls = {},
     tailwindcss = {},
     eslint = {},
+    rust_analyzer = {},
     lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim", }, disable = { 'missing-fields' }, }, }, }, },
 }
 

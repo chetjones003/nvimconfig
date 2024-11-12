@@ -24,6 +24,8 @@ require("lazy").setup({
                 ensure_installed = {
                     "lua",
                     "go",
+                    "rust",
+                    "toml",
                     "vim",
                     "vimdoc",
                     "regex",
@@ -70,10 +72,26 @@ require("lazy").setup({
     -----------------------------------------------------------------------------
 
     {
-        'folke/tokyonight.nvim',
+        "ellisonleao/gruvbox.nvim",
         priority = 1000,
+        opts = {
+            terminal_colors = true, -- add neovim terminal colors
+            undercurl = true,
+            underline = false,
+            bold = false,
+            italic = {
+                strings = false,
+                emphasis = false,
+                comments = false,
+                operators = false,
+                folds = false,
+            },
+            strikethrough = false,
+            dim_inactive = false,
+            transparent_mode = false,
+        },
         init = function()
-            vim.cmd.colorscheme 'tokyonight-night'
+            vim.cmd.colorscheme 'gruvbox'
         end,
     },
 
@@ -111,16 +129,9 @@ require("lazy").setup({
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {
-            sections = {
-                lualine_a = { 'mode' },
-                lualine_b = { 'branch', 'diff', 'diagnostics' },
-                lualine_c = { 'filename' },
-                lualine_x = { 'filetype' },
-                lualine_y = { 'progress' },
-                lualine_z = { 'location' }
-            },
-        },
+        config = function()
+            return require("cjvim.plugins.lualine")
+        end
     },
 
     {

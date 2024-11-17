@@ -1,37 +1,37 @@
 -- [[Bootstrap Lazy]]
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable', -- latest stable release
         lazypath,
     })
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
+require('lazy').setup({
 
     -- [[Treesitter]]
     {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
         config = function()
-            local configs = require("nvim-treesitter.configs")
+            local configs = require('nvim-treesitter.configs')
             configs.setup({
                 ensure_installed = {
-                    "lua",
-                    "go",
-                    "rust",
-                    "toml",
-                    "vim",
-                    "vimdoc",
-                    "regex",
-                    "bash",
-                    "markdown",
-                    "markdown_inline",
+                    'lua',
+                    'go',
+                    'rust',
+                    'toml',
+                    'vim',
+                    'vimdoc',
+                    'regex',
+                    'bash',
+                    'markdown',
+                    'markdown_inline',
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -41,9 +41,9 @@ require("lazy").setup({
 
     -- [[Telescope]]
     {
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.3",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.3',
+        dependencies = { 'nvim-lua/plenary.nvim' },
         opts = {
             pickers = {
                 find_files = {
@@ -52,7 +52,7 @@ require("lazy").setup({
             },
             defaults = {
                 file_ignore_patterns = {
-                    "git", "build", "dist", "yarn.lock", "node_modules"
+                    'git', 'build', 'dist', 'yarn.lock', 'node_modules'
                 },
                 ripgrep_arguments = {
                     'rg',
@@ -72,32 +72,29 @@ require("lazy").setup({
     -----------------------------------------------------------------------------
 
     {
-        "ellisonleao/gruvbox.nvim",
+        'navarasu/onedark.nvim',
         priority = 1000,
         opts = {
-            terminal_colors = true, -- add neovim terminal colors
-            undercurl = true,
-            underline = false,
-            bold = false,
-            italic = {
-                strings = false,
-                emphasis = false,
-                comments = false,
-                operators = false,
-                folds = false,
+            style = 'warmer',
+            transparent = false,
+            code_style = {
+                comments = 'none',
             },
-            strikethrough = false,
-            dim_inactive = false,
-            transparent_mode = false,
+            highlights = {},
+            diagnostics = {
+                darker = true,
+                undercurl = true,
+                background = true,
+            },
         },
         init = function()
-            vim.cmd.colorscheme 'gruvbox'
+            vim.cmd.colorscheme 'onedark'
         end,
     },
 
     -- [[The best Git plugin]]
     {
-        "tpope/vim-fugitive",
+        'tpope/vim-fugitive',
         lazy = false,
     },
 
@@ -109,34 +106,14 @@ require("lazy").setup({
     },
 
     {
-        "nvim-tree/nvim-tree.lua",
-        opts = {
-            sort = {
-                sorter = "case_sensitive",
-            },
-            view = {
-                width = 30,
-            },
-            renderer = {
-                group_empty = true,
-            },
-            filters = {
-                dotfiles = true,
-            },
-        }
-    },
-
-    {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function()
-            return require("cjvim.plugins.lualine")
-        end
+        opts = {},
     },
 
     {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
+        'folke/which-key.nvim',
+        event = 'VeryLazy',
         opts = {
             spec = {
                 { '<leader>c', group = '[C]ode',    mode = { 'n', 'x' } },
@@ -145,6 +122,12 @@ require("lazy").setup({
                 { '<leader>f', group = '[F]ile' },
             },
         },
+    },
+
+    {
+        'stevearc/oil.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        opts = {},
     },
 
     -----------------------------------------------------------------------------
@@ -160,25 +143,24 @@ require("lazy").setup({
             'hrsh7th/cmp-nvim-lsp',
         },
         config = function()
-            return require("cjvim.plugins.lspconfig")
+            return require('cjvim.plugins.lspconfig')
         end,
     },
 
     -- A completion engine plugin for neovim written in Lua (:help cmp)
     {
-        "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
+        'hrsh7th/nvim-cmp',
+        event = 'InsertEnter',
         lazy = false,
         priority = 100,
         dependencies = {
-            { "onsails/lspkind.nvim" },
-            { "hrsh7th/cmp-path" },
-            { "hrsh7th/cmp-nvim-lua" },
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "windwp/nvim-autopairs" },
+            { 'onsails/lspkind.nvim' },
+            { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-nvim-lua' },
+            { 'hrsh7th/cmp-nvim-lsp' },
         },
         config = function()
-            return require("cjvim.plugins.cmp")
+            return require('cjvim.plugins.cmp')
         end
     },
 })

@@ -1,6 +1,6 @@
 local lspkind = require("lspkind")
-lspkind.init {}
 
+lspkind.init {}
 local cmp = require('cmp')
 
 local kind_icons = {
@@ -33,14 +33,22 @@ local kind_icons = {
 }
 
 cmp.setup({
+    window = {
+        completion = vim.tbl_extend("force", cmp.config.window.bordered(), {
+            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        }),
+        documentation = vim.tbl_extend("force", cmp.config.window.bordered(), {
+            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        }),
+    },
     sources = {
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "path" },
     },
     mapping = {
-        ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-        ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+        ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+        ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
         ["<C-y>"] = cmp.mapping.confirm({ select = true }),
         ["<C-Space>"] = cmp.mapping.complete(),
     },
@@ -61,3 +69,13 @@ cmp.setup({
         select = false,
     },
 })
+
+require('nvim-autopairs').setup()
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
+)
+
+vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'NONE', fg = '#808080' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { fg = '#ffffff' })

@@ -23,6 +23,8 @@ require('lazy').setup({
             configs.setup({
                 ensure_installed = {
                     'lua',
+                    'html',
+                    'templ',
                     'go',
                     'rust',
                     'toml',
@@ -32,6 +34,9 @@ require('lazy').setup({
                     'bash',
                     'markdown',
                     'markdown_inline',
+                    'javascript',
+                    'typescript',
+                    'svelte',
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -87,9 +92,35 @@ require('lazy').setup({
                 background = true,
             },
         },
+    },
+
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {
+            transparent = true,
+            styles = {
+                comments = { italic = false },
+                keywords = { italic = false },
+                sidbars = "transparent",
+                floats = "transparent",
+            },
+        },
+    },
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+        opts = {
+            styles = {
+                bold = false,
+                italic = false,
+                transparency = true,
+            },
+        },
         init = function()
-            vim.cmd.colorscheme 'onedark'
-        end,
+            vim.cmd("colorscheme rose-pine")
+        end
     },
 
     -- [[The best Git plugin]]
@@ -108,7 +139,22 @@ require('lazy').setup({
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {},
+        opts = {
+            options = {
+                icons_enabled = true,
+                theme = 'auto',
+                component_separators = { left = '', right = '' },
+                section_separators = { left = '', right = '' },
+            },
+            sections = {
+                lualine_a = { 'mode' },
+                lualine_b = { 'branch', 'diff', 'diagnostics' },
+                lualine_c = { 'buffers' },
+                lualine_x = { 'filetype', 'tabs' },
+                lualine_y = { 'progress' },
+                lualine_z = { 'location' }
+            },
+        },
     },
 
     {
@@ -123,13 +169,6 @@ require('lazy').setup({
             },
         },
     },
-
-    {
-        'stevearc/oil.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {},
-    },
-
     -----------------------------------------------------------------------------
     -- LSP
     -----------------------------------------------------------------------------
@@ -158,6 +197,7 @@ require('lazy').setup({
             { 'hrsh7th/cmp-path' },
             { 'hrsh7th/cmp-nvim-lua' },
             { 'hrsh7th/cmp-nvim-lsp' },
+            { 'windwp/nvim-autopairs' },
         },
         config = function()
             return require('cjvim.plugins.cmp')

@@ -1,10 +1,30 @@
 local servers = {
     gopls = {},
+    templ = {},
+    html = {
+        filetypes = { 'html', 'templ' },
+    },
+    htmx = {
+        filetypes = { 'html', 'templ' },
+    },
+    emmet_language_server = {
+        filetypes = { 'html', 'templ' },
+    },
+    tailwindcss = {
+        filetypes = { 'templ', 'astro', 'javascript', 'typescript', 'react' },
+        settings = {
+            tailwindCSS = {
+                includeLanguages = {
+                    templ = 'html',
+                },
+            },
+        },
+    },
     ts_ls = {},
-    tailwindcss = {},
     eslint = {},
+    svelte = {},
     rust_analyzer = {},
-    lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim", }, disable = { 'missing-fields' }, }, }, }, },
+    lua_ls = { settings = { Lua = { diagnostics = { globals = { 'vim', }, disable = { 'missing-fields' }, }, }, }, },
 }
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -22,7 +42,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
         map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
         map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
-        map("gh", vim.diagnostic.open_float, '[O]pen Float')
+        map('gh', vim.diagnostic.open_float, '[O]pen Float')
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
     end,
 })
@@ -54,3 +74,5 @@ require('mason-lspconfig').setup {
         end,
     },
 }
+
+vim.filetype.add({ extension = { templ = 'templ' } })

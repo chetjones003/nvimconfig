@@ -1,19 +1,5 @@
 local lualine = require('lualine')
-
-local colors = {
-    bg       = '#282828',
-    fg       = '#EBDBB2',
-    yellow   = '#D79921',
-    cyan     = '#689D6A',
-    darkblue = '#83A598',
-    green    = '#98971A',
-    orange   = '#fe8019',
-    violet   = '#b16286',
-    magenta  = '#f78b7f',
-    blue     = '#076678',
-    red      = '#cc241d',
-}
-
+local rosepine = require('cjvim.config.colors').RosePine
 local conditions = {
     buffer_not_empty = function()
         return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
@@ -33,8 +19,8 @@ local config = {
         component_separators = '',
         section_separators = '',
         theme = {
-            normal = { c = { fg = colors.fg, bg = colors.bg } },
-            inactive = { c = { fg = colors.fg, bg = colors.bg } },
+            normal = { c = { fg = rosepine.text, bg = rosepine.surface } },
+            inactive = { c = { fg = rosepine.text, bg = rosepine.base } },
         },
     },
     sections = {
@@ -67,7 +53,7 @@ ins_left {
     function()
         return '▊'
     end,
-    color = { fg = colors.blue },
+    color = { fg = rosepine.pine },
     padding = { left = 0, right = 1 },
 }
 
@@ -77,26 +63,25 @@ ins_left {
     end,
     color = function()
         local mode_color = {
-            n = colors.red,
-            i = colors.green,
-            v = colors.blue,
-            [''] = colors.blue,
-            V = colors.blue,
-            c = colors.magenta,
-            no = colors.red,
-            s = colors.orange,
-            S = colors.orange,
-            [''] = colors.orange,
-            ic = colors.yellow,
-            R = colors.violet,
-            Rv = colors.violet,
-            cv = colors.red,
-            ce = colors.red,
-            r = colors.cyan,
-            rm = colors.cyan,
-            ['r?'] = colors.cyan,
-            ['!'] = colors.red,
-            t = colors.red,
+            n = rosepine.rose,
+            i = rosepine.foam,
+            v = rosepine.iris,
+            V = rosepine.iris,
+            c = rosepine.love,
+            no = rosepine.rose,
+            s = rosepine.text,
+            S = rosepine.text,
+            [''] = rosepine.gold,
+            ic = rosepine.text,
+            R = rosepine.text,
+            Rv = rosepine.text,
+            cv = rosepine.text,
+            ce = rosepine.rose,
+            r = rosepine.text,
+            rm = rosepine.text,
+            ['r?'] = rosepine.text,
+            ['!'] = rosepine.rose,
+            t = rosepine.rose,
         }
         return { fg = mode_color[vim.fn.mode()] }
     end,
@@ -112,21 +97,21 @@ ins_left {
 ins_left {
     'filename',
     cond = conditions.buffer_not_empty,
-    color = { fg = colors.magenta, gui = 'bold' },
+    color = { fg = rosepine.gold, gui = 'bold' },
 }
 
 ins_left { 'location' }
 
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+ins_left { 'progress', color = { fg = rosepine.text, gui = 'bold' } }
 
 ins_left {
     'diagnostics',
     sources = { 'nvim_diagnostic' },
     symbols = { error = ' ', warn = ' ', info = ' ' },
     diagnostics_color = {
-        error = { fg = colors.red },
-        warn = { fg = colors.yellow },
-        info = { fg = colors.cyan },
+        error = { fg = rosepine.rose },
+        warn = { fg = rosepine.gold },
+        info = { fg = rosepine.pine },
     },
 }
 
@@ -154,36 +139,36 @@ ins_left {
         return msg
     end,
     icon = ' LSP:',
-    color = { fg = '#ffffff', gui = 'bold' },
+    color = { fg = rosepine.foam, gui = 'bold' },
 }
 
 ins_right {
     'o:encoding',
     fmt = string.upper,
     cond = conditions.hide_in_width,
-    color = { fg = colors.green, gui = 'bold' },
+    color = { fg = rosepine.foam, gui = 'bold' },
 }
 
 ins_right {
     'fileformat',
     fmt = string.upper,
     icons_enabled = false,
-    color = { fg = colors.green, gui = 'bold' },
+    color = { fg = rosepine.foam, gui = 'bold' },
 }
 
 ins_right {
     'branch',
     icon = '',
-    color = { fg = colors.violet, gui = 'bold' },
+    color = { fg = rosepine.iris, gui = 'bold' },
 }
 
 ins_right {
     'diff',
     symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
     diff_color = {
-        added = { fg = colors.green },
-        modified = { fg = colors.orange },
-        removed = { fg = colors.red },
+        added = { fg = rosepine.foam },
+        modified = { fg = rosepine.love },
+        removed = { fg = rosepine.rose },
     },
     cond = conditions.hide_in_width,
 }
@@ -192,7 +177,7 @@ ins_right {
     function()
         return '▊'
     end,
-    color = { fg = colors.blue },
+    color = { fg = rosepine.pine },
     padding = { left = 1 },
 }
 

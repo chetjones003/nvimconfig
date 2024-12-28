@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 -- Format on save
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = augroup("format_on_save"),
+    pattern = { "*.go", "*.html", "*.css", "*.toml", "*.js", "*.ts", "*.lua" },
     callback = function()
         vim.lsp.buf.format()
     end
@@ -106,3 +107,32 @@ vim.api.nvim_create_user_command("GoTestFile", function()
     vim.cmd("split")
     vim.cmd("terminal go test %")
 end, {})
+
+-- NOTE: For use with formatting templ files
+local custom_format = function()
+    if vim.bo.filetype == "templ" then
+        local bufnr = vim.api.nvim_get_current_buf()
+        local filename = vim.api.nvim_buf_get_name(bufnr)
+        local cmd = "templ fmt " .. vim.fn.shellescape(filename)
+
+        vim.fn.jobstart(cmd, {
+            on_exit = function()
+                -- Reload the buffer only if it's still the current buffer
+                if vim.api.nvim_get_current_buf() == bufnr then
+                    vim.cmd('e!')
+                end
+            end,
+        })
+    else
+        vim.lsp.buf.format()
+    end
+end
+
+-- Format templ on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup("format_templ_on_save"),
+    pattern = { "*.templ" },
+    callback = function()
+        custom_format()
+    end
+})

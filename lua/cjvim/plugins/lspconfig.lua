@@ -1,29 +1,10 @@
+local lspconfig = require("lspconfig")
 local servers = {
     gopls = {},
-    templ = {},
-    html = {
-        filetypes = { 'html', 'templ' },
-    },
-    htmx = {
-        filetypes = { 'html', 'templ' },
-    },
-    emmet_language_server = {
-        filetypes = { 'html', 'templ' },
-    },
-    tailwindcss = {
-        filetypes = { 'templ', 'astro', 'javascript', 'typescript', 'react' },
-        settings = {
-            tailwindCSS = {
-                includeLanguages = {
-                    templ = 'html',
-                },
-            },
-        },
-    },
+    html = { filetypes = { 'html', 'templ' }, },
+    emmet_language_server = { filetypes = { 'html', 'templ' }, },
     ts_ls = {},
     eslint = {},
-    svelte = {},
-    rust_analyzer = {},
     lua_ls = { settings = { Lua = { diagnostics = { globals = { 'vim', }, disable = { 'missing-fields' }, }, }, }, },
 }
 
@@ -60,6 +41,11 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 require('mason').setup()
+lspconfig.gopls.setup({})
+lspconfig.ts_ls.setup({
+    cmd = { "typescript-language-server", "--stdio" },
+    filetypes = { "typescript", "javascript" }
+})
 
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {})
@@ -74,5 +60,3 @@ require('mason-lspconfig').setup {
         end,
     },
 }
-
-vim.filetype.add({ extension = { templ = 'templ' } })

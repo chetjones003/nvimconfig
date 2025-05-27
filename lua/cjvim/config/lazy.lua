@@ -24,10 +24,6 @@ require('lazy').setup({
                 ensure_installed = {
                     'lua',
                     'html',
-                    'templ',
-                    'go',
-                    'rust',
-                    'toml',
                     'vim',
                     'vimdoc',
                     'regex',
@@ -36,7 +32,6 @@ require('lazy').setup({
                     'markdown_inline',
                     'javascript',
                     'typescript',
-                    'svelte',
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -44,7 +39,6 @@ require('lazy').setup({
         end
     },
 
-    -- [[Telescope]]
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.3',
@@ -72,68 +66,20 @@ require('lazy').setup({
         },
     },
 
-    -----------------------------------------------------------------------------
-    -- UI
-    -----------------------------------------------------------------------------
-
     {
-        'navarasu/onedark.nvim',
-        priority = 1000,
-        opts = {
-            style = 'warmer',
-            transparent = false,
-            code_style = {
-                comments = 'none',
-            },
-            highlights = {},
-            diagnostics = {
-                darker = true,
-                undercurl = true,
-                background = true,
-            },
-        },
+        "nvim-tree/nvim-tree.lua",
+        config = function()
+            return require('cjvim.plugins.nvim_tree')
+        end,
     },
 
     {
-        "folke/tokyonight.nvim",
+        "RRethy/base16-nvim",
         lazy = false,
         priority = 1000,
-        opts = {
-            transparent = true,
-            styles = {
-                comments = { italic = false },
-                keywords = { italic = false },
-                sidbars = "transparent",
-                floats = "transparent",
-            },
-        },
-    },
-    {
-        "rose-pine/neovim",
-        name = "rose-pine",
-        opts = {
-            styles = {
-                bold = false,
-                italic = false,
-                transparency = true,
-            },
-        },
         init = function()
-            vim.cmd("colorscheme rose-pine")
+            vim.cmd("colorscheme base16-gruvbox-dark-medium")
         end
-    },
-
-    -- [[The best Git plugin]]
-    {
-        'tpope/vim-fugitive',
-        lazy = false,
-    },
-
-    {
-        'folke/todo-comments.nvim',
-        event = 'VimEnter',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        opts = { signs = false }
     },
 
     {
@@ -160,25 +106,25 @@ require('lazy').setup({
     {
         'folke/which-key.nvim',
         event = 'VeryLazy',
-        opts = {
-            spec = {
-                { '<leader>c', group = '[C]ode',    mode = { 'n', 'x' } },
-                { '<leader>d', group = '[D]ocument' },
-                { '<leader>r', group = '[R]ename' },
-                { '<leader>f', group = '[F]ile' },
-            },
-        },
+        config = function()
+            return require("cjvim.plugins.which_key")
+        end,
     },
-    -----------------------------------------------------------------------------
-    -- LSP
-    -----------------------------------------------------------------------------
+
     {
         'neovim/nvim-lspconfig',
         dependencies = {
-            { 'williamboman/mason.nvim', config = true },
+            {
+                'mason-org/mason.nvim',
+                opts = {
+                    ui = {
+                        border = "rounded"
+                    }
+                }
+            },
             'williamboman/mason-lspconfig.nvim',
             'WhoIsSethDaniel/mason-tool-installer.nvim',
-            { 'j-hui/fidget.nvim',       opts = {} },
+            { 'j-hui/fidget.nvim', opts = {} },
             'hrsh7th/cmp-nvim-lsp',
         },
         config = function()
@@ -186,7 +132,6 @@ require('lazy').setup({
         end,
     },
 
-    -- A completion engine plugin for neovim written in Lua (:help cmp)
     {
         'hrsh7th/nvim-cmp',
         event = 'InsertEnter',

@@ -1,4 +1,5 @@
-vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#1f1d2e' })
+vim.api.nvim_set_hl(0, 'NvimTreeNormal', { bg = '#131313' })
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "NONE", bg = "NONE" })
 
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
@@ -41,3 +42,5 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.shortmess:append "c"
+
+vim.opt.fillchars:append({ eob = " " })

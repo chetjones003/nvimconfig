@@ -1,3 +1,30 @@
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = '',    -- Could be '●', '■', '▶', etc.
+        spacing = 2,
+        severity = nil, -- Only show diagnostics above a certain severity
+        format = function(diagnostic)
+            local icons = {
+                [vim.diagnostic.severity.ERROR] = ' ',
+                [vim.diagnostic.severity.WARN] = ' ',
+                [vim.diagnostic.severity.INFO] = ' ',
+                [vim.diagnostic.severity.HINT] = ' ',
+            }
+            local symbol = icons[diagnostic.severity] or ''
+            return symbol .. diagnostic.message
+        end
+    },
+    signs = true,             -- show signs in the gutter
+    underline = true,         -- underline the offending code
+    update_in_insert = false, -- do not show diagnostics while typing
+    severity_sort = true,
+})
+
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { bg = "#3b0000", fg = "#ff0000" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { bg = "#3b2f00", fg = "#ffaa00" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { bg = "#002d3b", fg = "#00aaff" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { bg = "#1c1c1c", fg = "#aaaaaa" })
+
 local lspconfig = require("lspconfig")
 local servers = {
     gopls = {},
@@ -25,6 +52,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
         map('gh', vim.diagnostic.open_float, '[O]pen Float')
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+        map('<C-h>', function() vim.lsp.buf.signature_help() end, "Signature Help", { 'i', 's' })
     end,
 })
 
@@ -50,6 +78,9 @@ lspconfig.ts_ls.setup({
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {})
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+require('lspconfig').clangd.setup({
+    cmd = { 'clangd', '--compile-commands-dir=build' }
+})
 
 require('mason-lspconfig').setup {
     handlers = {
